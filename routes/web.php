@@ -7,6 +7,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\KabinetController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\TypeController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,6 +52,18 @@ Route::delete('departement/destroy', [DepartementController::class, 'destroy'])-
 Route::resource('unit', UnitController::class);
 Route::put('unit/update', [UnitController::class, 'update'])->name('unit_update');
 Route::delete('unit/destroy', [UnitController::class, 'destroy'])->name('unit_destroy');
+
+//SUPPLIER
+Route::resource('supplier', SupplierController::class);
+Route::put('supplier/update', [SupplierController::class, 'update'])->name('supplier_update');
+Route::delete('supplier/destroy', [SupplierController::class, 'destroy'])->name('supplier_destroy');
+
+//PRODUCT
+Route::resource('product', ProductController::class);
+Route::put('product/update', [ProductController::class, 'update'])->name('product_update');
+Route::delete('product/destroy', [ProductController::class, 'destroy'])->name('product_destroy');
+
+
 
 
 //Type

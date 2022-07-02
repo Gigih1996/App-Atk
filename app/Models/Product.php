@@ -14,6 +14,6 @@ class Product extends Model
         'name',
         'unit_id',
         'type_id',
-        'sum'
+        'stock'
     ];
 }

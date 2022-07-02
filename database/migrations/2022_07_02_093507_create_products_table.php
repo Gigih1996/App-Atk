@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
             $table->char('name', 100);
             $table->unsignedInteger('unit_id')->default(0);
             $table->unsignedInteger('type_id')->default(0);
-            $table->integer('sum');
+            $table->integer('stock');
 
             $table->timestamps();
 

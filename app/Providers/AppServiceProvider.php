@@ -81,7 +81,12 @@ class AppServiceProvider extends ServiceProvider
                     [
                         'text' => 'Supplier',
                         'icon_color' => 'yellow',
-                        'url'  => 'departement/create',
+                        'url'  => 'supplier',
+                    ],
+                    [
+                        'text' => 'Product',
+                        'icon_color' => 'yellow',
+                        'url'  => 'product',
                     ],
                 ],
             ]);
