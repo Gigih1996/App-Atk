@@ -46,9 +46,9 @@ Route::put('departement/update', [DepartementController::class, 'update'])->name
 Route::delete('departement/destroy', [DepartementController::class, 'destroy'])->name('departement_destroy');
 
 //Unit
-Route::resource('units', UnitController::class);
-Route::put('units/update', [UnitController::class, 'update'])->name('unit_update');
-Route::put('units/destroy', [UnitController::class, 'destroy'])->name('unit_destroy');
+Route::resource('unit', UnitController::class);
+Route::put('unit/update', [UnitController::class, 'update'])->name('unit_update');
+Route::delete('unit/destroy', [UnitController::class, 'destroy'])->name('unit_destroy');
 
 
 
