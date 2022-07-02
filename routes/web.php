@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KabinetController;
 use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,6 +52,10 @@ Route::put('unit/update', [UnitController::class, 'update'])->name('unit_update'
 Route::delete('unit/destroy', [UnitController::class, 'destroy'])->name('unit_destroy');
 
 
+//Type
+Route::resource('type', TypeController::class);
+Route::put('type/update', [TypeController::class, 'update'])->name('type_update');
+Route::delete('type/destroy', [TypeController::class, 'destroy'])->name('type_destroy');
 
 // //SETTING
 // Route::resource('media_arsip', MediaArsipController::class);
