@@ -1,40 +1,42 @@
 @extends('adminlte::page')
 @section('title', 'Divisi - Index')
 @section('content')
-    <div class="pt-3">
-        <div class="card card-primary card-outline">
-            <div class="card-header bg-light">
-                <div class="row">
-                    <div class="col-md-7 col-lg-6">
-                        <h3><i class="fas fa-building font-weight-bold"></i> Divisi - Index</h3>
+    <div class="row">
+        <div class="col-md-12 mt-3">
+            <div class="card card-primary card-outline">
+                <div class="card-header bg-light">
+                    <div class="row">
+                        <div class="col-md-7 col-lg-6">
+                            <h3><i class="fas fa-building font-weight-bold"></i> Divisi - Index</h3>
+                        </div>
+                        <div class="col-md-5 col-lg-6 text-right">
+                            <button class="btn btn-md btn-dark" data-toggle="modal" onclick="CreateDepartement()"
+                                data-target="#createDepartementModal">
+                                <i class="fa fa-plus-circle fa-sm"></i> Create
+                            </button>
+                        </div>
                     </div>
-                    <div class="col-md-5 col-lg-6 text-right">
-                        <button class="btn btn-md btn-dark" data-toggle="modal" onclick="CreateDepartement()"
-                            data-target="#createDepartementModal">
-                            <i class="fa fa-plus-circle fa-sm"></i> Create
-                        </button>
-                    </div>
+                    @include('departements.create')
+                    @include('departements.edit')
+                    @include('sweetalert::alert')
+
                 </div>
-                @include('departements.create')
-                @include('departements.edit')
-                @include('sweetalert::alert')
+                <div class="card-body">
+                    <div class="table-responsive">
+                        {{-- @if (count($karyawan) > 0) --}}
+                        <table class="table table-bordered table-striped" width="100%" id="TableDepartement">
+                            <thead>
+                                <tr>
+                                    <th class="text-center font-weight-bold text-dark" width="45">No</th>
+                                    <th class="text-center font-weight-bold text-dark">Name</th>
+                                    <th class="text-center font-weight-bold text-dark">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    {{-- @if (count($karyawan) > 0) --}}
-                    <table class="table table-bordered table-striped" width="100%" id="TableDepartement">
-                        <thead>
-                            <tr>
-                                <th class="text-center font-weight-bold text-dark" width="45">No</th>
-                                <th class="text-center font-weight-bold text-dark">Name</th>
-                                <th class="text-center font-weight-bold text-dark">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

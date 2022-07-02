@@ -69,9 +69,9 @@ class AppServiceProvider extends ServiceProvider
                         'url'  => 'departement',
                     ],
                     [
-                        'text' => 'Product',
+                        'text' => 'Product Unit',
                         'icon_color' => 'yellow',
-                        'url'  => 'departement/create',
+                        'url'  => 'unit/create',
                     ],
                     [
                         'text' => 'Supplier',

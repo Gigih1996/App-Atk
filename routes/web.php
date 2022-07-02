@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KabinetController;
 use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -43,6 +44,11 @@ Route::get('kabinet/destroy/{id}', [KabinetController::class, 'destroy'])->name(
 Route::resource('departement', DepartementController::class);
 Route::put('departement/update', [DepartementController::class, 'update'])->name('departement_update');
 Route::delete('departement/destroy', [DepartementController::class, 'destroy'])->name('departement_destroy');
+
+//Unit
+Route::resource('units', UnitController::class);
+Route::put('units/update', [UnitController::class, 'update'])->name('unit_update');
+Route::put('units/destroy', [UnitController::class, 'destroy'])->name('unit_destroy');
 
 
 
