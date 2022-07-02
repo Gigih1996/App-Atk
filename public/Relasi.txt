@@ -1,0 +1,21 @@
+nama tabel          : kabinets
+nama foreign key    : role_id
+
+nama tabel          : roles
+nama primary key    : id
+
+App\Models\Kabinet.php :
+
+public function role() {
+    return $this->hasMany(Role::class);
+}
+
+public function kabinet() {
+    return $this->belongsTo(Kabinet::class);
+}
+
+
+
+
+hasMany   : 1 role memiliki banyak kabinets 
+belongsTo : banyak kabinets memiliki 1 role

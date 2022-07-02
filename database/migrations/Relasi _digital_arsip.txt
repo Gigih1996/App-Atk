@@ -1,0 +1,15 @@
+SELECT archives.no_kabinet, kabinets.nomor_kabinet FROM archives LEFT JOIN kabinets
+ ON kabinets.nomor_kabinet = archives.no_kabinet
+
+01 = 
+
+pilih table archives dengan kolom no_kabinet,
+table kabinets dengan kolom nomor kabinet 
+dari table archives join kiri table kabinets dalam 
+nomor table kabinets dengan kolom nomor_kabinet = table archives dengan kolom no_kabinet
+
+
+{{ $kabinet_nomor->getkabinetnomor($item->no_kabinet) }}
+{{ $kabinet_nomor->getkabinetnomor($item->no_kabinet) }}
+
+ 'nomor_berkas', 'kabinet_nomor', 'role_name'
