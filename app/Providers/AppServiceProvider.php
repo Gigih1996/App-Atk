@@ -100,14 +100,14 @@ class AppServiceProvider extends ServiceProvider
                 'label_color' => 'success',
                 'submenu' => [
                     [
-                        'text' => 'Purchase Order',
+                        'text' => 'Incoming Transaction',
                         'icon_color' => 'green',
-                        'url'  => 'transaction',
+                        'url'  => 'transactionincoming',
                     ],
                     [
-                        'text' => 'Receiver Order',
+                        'text' => 'Outgoing Transaction',
                         'icon_color' => 'green',
-                        'url'  => 'transaction/create',
+                        'url'  => 'transaction/outgoing',
                     ]
                 ],
             ]);
