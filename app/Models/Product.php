@@ -5,9 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class JenisArsip extends Model
+class Product extends Model
 {
     use HasFactory;
-    
-    protected $fillable = ['nama_jenis_arsip'];
+
+    protected $fillable =
+    [
+        'name',
+        'unit_id',
+        'type_id',
+        'sum'
+    ];
 }
