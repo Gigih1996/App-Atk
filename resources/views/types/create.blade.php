@@ -1,17 +1,17 @@
-<div class="modal fade" id="createUnitModal">
+<div class="modal fade" id="createTypeModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success text-white font-weight-bold">
-                <h5 class="modal-title"><i class="fas fa-building"></i> Create Product Unit</h5>
+                <h5 class="modal-title"><i class="fas fa-building"></i> Create Type</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['route' => 'unit.store', 'method' => 'POST', 'id' => 'UnitForm', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => 'type.store', 'method' => 'POST', 'id' => 'TypeForm', 'autocomplete' => 'off']) !!}
                 <div class="form-group">
                     <label for="name" class="font-weight-bold">Name<span class="text-danger">*</span></label>
-                    {!! Form::text('name', null, ['placeholder' => 'Name Product', 'class' => 'form-control', 'id' => 'name_unit', 'required']) !!}
+                    {!! Form::text('name', null, ['placeholder' => 'Name Type', 'class' => 'form-control', 'id' => 'name_type', 'required']) !!}
                     <div class="text-danger" style="display: none;" id="error_name">The name field is required</div>
                 </div>
 
@@ -19,7 +19,7 @@
             </div>
 
             <div class="modal-footer mt-5">
-                <button type="button" class="btn btn-md btn-primary" id="submit" onclick="StoreUnit()">
+                <button type="button" class="btn btn-md btn-primary" id="submit" onclick="StoreType()">
                     <i class="fa fa-plus-circle fa-sm"></i> Store
                 </button>
                 <button type="button" class="btn btn-md btn-primary" id="loading" style="display:none;">

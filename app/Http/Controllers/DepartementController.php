@@ -145,12 +145,5 @@ class DepartementController extends Controller
     {
         $departement = $request->id;
         Departement::find($departement)->delete();
-        // $data = [
-        //     'status' => 'Delete Successfully',
-        //     'status_text' => 'You student data has been deleted successfully',
-        //     'status_icon' => 'success'
-        // ];
-
-        // return response()->json(['data' => $data]);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KabinetController;
 use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\TypeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
@@ -48,9 +49,9 @@ Route::put('departement/update', [DepartementController::class, 'update'])->name
 Route::delete('departement/destroy', [DepartementController::class, 'destroy'])->name('departement_destroy');
 
 //Unit
-Route::resource('units', UnitController::class);
-Route::put('units/update', [UnitController::class, 'update'])->name('unit_update');
-Route::put('units/destroy', [UnitController::class, 'destroy'])->name('unit_destroy');
+Route::resource('unit', UnitController::class);
+Route::put('unit/update', [UnitController::class, 'update'])->name('unit_update');
+Route::delete('unit/destroy', [UnitController::class, 'destroy'])->name('unit_destroy');
 
 //SUPPLIER
 Route::resource('supplier', SupplierController::class);
@@ -65,6 +66,10 @@ Route::delete('product/destroy', [ProductController::class, 'destroy'])->name('p
 
 
 
+//Type
+Route::resource('type', TypeController::class);
+Route::put('type/update', [TypeController::class, 'update'])->name('type_update');
+Route::delete('type/destroy', [TypeController::class, 'destroy'])->name('type_destroy');
 
 // //SETTING
 // Route::resource('media_arsip', MediaArsipController::class);

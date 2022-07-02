@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Units - Index')
+@section('title', 'Type - Index')
 @section('content')
     <div class="row">
         <div class="col-md-12 mt-3">
@@ -7,24 +7,24 @@
                 <div class="card-header bg-light">
                     <div class="row">
                         <div class="col-md-7 col-lg-6">
-                            <h3><i class="fas fa-building font-weight-bold"></i> Units - Index</h3>
+                            <h3><i class="fas fa-building font-weight-bold"></i> Type - Index</h3>
                         </div>
                         <div class="col-md-5 col-lg-6 text-right">
-                            <button class="btn btn-md btn-dark" data-toggle="modal" onclick="createUnit()"
-                                data-target="#createUnitModal">
+                            <button class="btn btn-md btn-dark" data-toggle="modal" onclick="createType()"
+                                data-target="#createTypeModal">
                                 <i class="fa fa-plus-circle fa-sm"></i> Create
                             </button>
                         </div>
                     </div>
-                    @include('units.create')
-                    @include('units.edit')
+                    @include('types.create')
+                    @include('types.edit')
                     @include('sweetalert::alert')
 
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         {{-- @if (count($karyawan) > 0) --}}
-                        <table class="table table-bordered table-striped" width="100%" id="TableUnit">
+                        <table class="table table-bordered table-striped" width="100%" id="TableType">
                             <thead>
                                 <tr>
                                     <th class="text-center font-weight-bold text-dark" width="45">No</th>
@@ -120,7 +120,7 @@
     });
     $(document).ready(function() {
 
-        var table = $('#TableUnit').DataTable({
+        var table = $('#TableType').DataTable({
             processing: true,
             lengthChange: false,
 
@@ -136,7 +136,7 @@
             },
 
             serverSide: true,
-            ajax: "{{ route('unit.index') }}",
+            ajax: "{{ route('type.index') }}",
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
@@ -161,22 +161,22 @@
             .appendTo('#example_wrapper .col-md-6:eq(0)');
     });
 
-    function createUnit() {
-        $('#name_unit').removeClass('is-invalid');
+    function createType() {
+        $('#name_type').removeClass('is-invalid');
         $('#error_name').hide();
-        $('#name_unit').val('');
+        $('#name_type').val('');
         $('#loading').hide();
         $('#submit').show();
     }
 
-    function StoreUnit() {
+    function StoreType() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
-        var formSet = $("#UnitForm").serializeArray();
+        var formSet = $("#TypeForm").serializeArray();
         console.log(formSet);
         var error = 0;
         $.each(formSet, function(key, value) {
@@ -190,60 +190,60 @@
         if (error == 0) {
             $.ajax({
                 type: 'POST',
-                url: "{{ route('unit.store') }}",
+                url: "{{ route('type.store') }}",
                 data: formSet,
                 beforeSend: function() {
                     $('#loading').show();
                     $('#submit').hide();
                 },
                 success: function(data) {
-                    $('#createUnitModal').modal('hide');
-                    $('#TableUnit').DataTable().ajax.reload();
+                    $('#createTypeModal').modal('hide');
+                    $('#TableType').DataTable().ajax.reload();
                     swal("Success!", "The Unit create has been successfully!", "success");
                     $('#success').show();
                     $('#loading').hide();
 
-                    $('#UnitForm')[0].reset();
+                    $('#TypeForm')[0].reset();
                 },
 
             });
         }
     }
 
-    function UpdateUnit() {
+    function UpdateType() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        var id = $('#id_unit').val();
-        var name = $('#NameEditUnit').val();
+        var id = $('#id_type').val();
+        var name = $('#NameEditType').val();
         // console.log(formSet);
         $.ajax({
             type: 'PUT',
-            url: "{{ route('unit_update') }}",
+            url: "{{ route('type_update') }}",
             data: {
                 id: id,
                 name: name
             },
             beforeSend: function() {
-                $('#submit_edit_unit').hide();
-                $('#loading_edit_unit').show();
+                $('#submit_edit_type').hide();
+                $('#loading_edit_type').show();
             },
             success: function(data) {
                 $("html, body").animate({
                     scrollTop: 0
                 }, "slow");
-                $('#EditUnitModal').modal('hide');
-                $('#TableUnit').DataTable().ajax.reload();
-                swal("Success!", "The Unit edit has been successfully!", "success");
-                $('#loading_edit_unit').hide();
-                $('#submit_edit_unit').show();
+                $('#EditTypeModal').modal('hide');
+                $('#TableType').DataTable().ajax.reload();
+                swal("Success!", "The Type edit has been successfully!", "success");
+                $('#loading_edit_type').hide();
+                $('#submit_edit_type').show();
             }
         });
     };
 
-    function DeleteUnit(id, name) {
+    function DeleteType(id, name) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -262,7 +262,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "{{ route('unit_destroy') }}",
+                        url: "{{ route('type_destroy') }}",
                         data: {
                             '_method': 'DELETE',
                             id: id,
@@ -278,7 +278,7 @@
                                 title: 'Success!',
                                 text: 'Data has been deleted!'
                             });
-                            $('#TableUnit').DataTable().ajax.reload();
+                            $('#TableType').DataTable().ajax.reload();
 
                         },
                         error: function(xhr) {
