@@ -51,7 +51,7 @@ class ProductController extends Controller
         $optionType = Type::all();
         $optionUnit = Unit::all();
 
-        return view('product.index',compact('optionType', 'optionUnit'));
+        return view('product.index', compact('optionType', 'optionUnit'));
     }
 
     /**
