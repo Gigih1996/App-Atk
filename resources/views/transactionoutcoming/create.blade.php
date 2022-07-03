@@ -75,9 +75,6 @@
                     {!! Form::date('date', null, ['placeholder' => 'Date', 'class' => 'form-control', 'required', 'id' => 'date']) !!}
                     <div class="text-danger" style="display: none;" id="date">The total field is required</div>
                 </div>
-
-
-
                 {!! Form::close() !!}
             </div>
 
