@@ -10,6 +10,8 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionIncomingController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Auth;
 
@@ -69,11 +71,18 @@ Route::resource('type', TypeController::class);
 Route::put('type/update', [TypeController::class, 'update'])->name('type_update');
 Route::delete('type/destroy', [TypeController::class, 'destroy'])->name('type_destroy');
 
+<<<<<<< HEAD
 //Employee
 Route::resource('employee', EmployeeController::class);
 Route::post('employee/store', [EmployeeController::class, 'store'])->name('employee_store');
 Route::put('employee/update', [EmployeeController::class, 'update'])->name('employee_update');
 Route::delete('employee/destroy', [EmployeeController::class, 'destroy'])->name('employee_destroy');
+=======
+//TRANSACTION INCOMING
+Route::resource('transactionincoming', TransactionIncomingController::class);
+Route::put('transactionincoming/update', [TransactionIncomingController::class, 'update'])->name('transaction_update_incoming');
+Route::delete('transactionincoming/destroy', [TypeController::class, 'destroy'])->name('transactionincoming_destroy');
+>>>>>>> c957f914a6a7b3d9d135eef57715559755c41d3b
 
 
 // //SETTING
