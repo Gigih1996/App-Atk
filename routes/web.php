@@ -10,8 +10,8 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionIncomingController;
+use App\Http\Controllers\TransactionoutcomingController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Auth;
 
@@ -85,3 +85,13 @@ Route::delete('transactionincoming/destroy', [TypeController::class, 'destroy'])
 // Route::get('jenis_arsip/destroy/{id}', [JenisArsipController::class, 'destroy'])->name('jenis_arsip_destroy');
 // Route::get('media_arsip/destroy/{id}', [MediaArsipController::class, 'destroy'])->name('media_destroy');
 // Route::get('status/destroy/{id}', [StatusFileController::class, 'destroy'])->name('status_destroy');
+
+// EMPLOYEE
+Route::resource('employee', EmployeeController::class);
+Route::put('employee/update', [EmployeeController::class, 'update'])->name('employee_update');
+Route::delete('employee/destroy', [EmployeeController::class, 'destroy'])->name('employee_destroy');
+
+//TRANSACTION OUTCOMING
+Route::resource('transactionoutcoming', TransactionoutcomingController::class);
+Route::put('transactionoutcoming/update', [TransactionoutcomingController::class, 'update'])->name('transactionoutcoming_update');
+Route::delete('transactionoutcoming/destroy', [TransactionoutcomingController::class, 'destroy'])->name('transactionoutcoming_destroy');

@@ -16,4 +16,14 @@ class Product extends Model
         'type_id',
         'stock'
     ];
+
+    public function unit()
+    {
+        $this->hasOne(Unit::class, 'id', 'unit_id');
+    }
+
+    public function type()
+    {
+        $this->hasOne(Type::class, 'id', 'type_id');
+    }
 }

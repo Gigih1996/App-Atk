@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Supplier - Index')
+@section('title', 'Outgoing Transaction - Index')
 @section('content')
     <div class="row">
         <div class="col-md-12 mt-3">
@@ -7,7 +7,7 @@
                 <div class="card-header bg-light">
                     <div class="row">
                         <div class="col-md-7 col-lg-6">
-                            <h3><i class="fas fa-dolly-flatbed"></i> Supplier - Index</h3>
+                            <h3><i class="far fa-id-card"></i> Outgoing Transaction - Index</h3>
                         </div>
                         <div class="col-md-5 col-lg-6 text-right">
                             <button class="btn btn-md btn-dark" data-toggle="modal" onclick="CreateAction()"
@@ -16,19 +16,22 @@
                             </button>
                         </div>
                     </div>
-                    @include('supplier.create')
-                    @include('supplier.edit')
+                    @include('transactionoutcoming.create')
+                    @include('transactionoutcoming.edit')
                     @include('sweetalert::alert')
-
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <!-- {{-- @if (count($karyawan) > 0) --}} -->
                         <table class="table table-bordered table-striped" width="100%" id="TableList">
                             <thead>
                                 <tr>
                                     <th class="text-center font-weight-bold text-dark" width="45">No</th>
-                                    <th class="text-center font-weight-bold text-dark">Name</th>
+                                    <th class="text-center font-weight-bold text-dark">Employee</th>
+                                    <th class="text-center font-weight-bold text-dark">Product</th>
+                                    <th class="text-center font-weight-bold text-dark">Unit</th>
+                                    <th class="text-center font-weight-bold text-dark">Total</th>
+                                    <th class="text-center font-weight-bold text-dark">Supplier</th>
+                                    <th class="text-center font-weight-bold text-dark">Date</th>
                                     <th class="text-center font-weight-bold text-dark">Action</th>
                                 </tr>
                             </thead>
@@ -70,12 +73,12 @@
     }
 
     .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 35px;
-        font-size: 11px;
+        line-height: 26px;
+        font-size: 15px;
     }
 
     .select2-container--default .select2-selection--single .select2-selection__arrow {
-        top: 6.2px;
+        top: 0.2px;
         right: 5px;
     }
 
@@ -111,18 +114,12 @@
 <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap4.min.js" defer></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" defer></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js" defer></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js" defer></script>
-<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js" defer></script>
-<script src="https://cdn.datatables.net/plug-ins/1.10.10/sorting/numeric-comma.js" defer></script> --}}
-
 <script>
     $(function() {
         $('.js-example-basic-hide-search').select2({
             minimumResultsForSearch: Infinity
         });
+        $('.js-example-basic-single').select2();
     });
     $(document).ready(function() {
 
@@ -142,7 +139,7 @@
             },
 
             serverSide: true,
-            ajax: "{{ route('supplier.index') }}",
+            ajax: "{{ route('transactionoutcoming.index') }}",
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
@@ -150,7 +147,22 @@
                     searchable: false
                 },
                 {
-                    data: 'name'
+                    data: 'employee_id'
+                },
+                {
+                    data: 'product_id'
+                },
+                {
+                    data: 'unit_id'
+                },
+                {
+                    data: 'total'
+                },
+                {
+                    data: 'supplier_id'
+                },
+                {
+                    data: 'date'
                 },
                 {
                     data: 'action',
@@ -158,6 +170,7 @@
                     searchable: false
                 },
             ],
+
             columnDefs: [{
                 targets: [-1],
                 className: 'dt-body-center'
@@ -168,9 +181,17 @@
     });
 
     function CreateAction() {
-        $('#name_supplier').removeClass('is-invalid');
+        $('#nameCreate').removeClass('is-invalid');
         $('#error_name').hide();
-        $('#name_supplier').val('');
+        $('#error_type').hide();
+        $('#error_unit').hide();
+        $('#error_stock').hide();
+
+        $('#nameCreate').val('');
+        $('#typeIdCreate').val('').select2('');
+        $('#unitIdCreate').val('').select2('');
+        $('#stockCreate').val('');
+
         $('#loading').hide();
         $('#submit').show();
     }
@@ -196,7 +217,7 @@
         if (error == 0) {
             $.ajax({
                 type: 'POST',
-                url: "{{ route('supplier.store') }}",
+                url: "{{ route('product.store') }}",
                 data: formSet,
                 beforeSend: function() {
                     $('#loading').show();
@@ -216,101 +237,109 @@
         }
     }
 
-    function EditAction(a,b) {
-        $('#idUpdate').val(a);
-        $('#nameUpdate').val(b);
-    }
+    // function EditAction(a, b, c, d, e) {
+    //     $('#idUpdate').val(a);
+    //     $('#nameUpdate').val(b);
+    //     $('#typeIdUpdate').val(c).select2('');
+    //     $('#unitIdUpdate').val(d).select2('');
+    //     $('#stockUpdate').val(e);
+    // }
+
+    // function StoreUpdate() {
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+    //     var id = $('#idUpdate').val();
+    //     var name = $('#nameUpdate').val();
+    //     var type = $('#typeIdUpdate').val();
+    //     var unit = $('#unitIdUpdate').val();
+    //     var stock = $('#stockUpdate').val();
+    //     // console.log(formSet);
+    //     $.ajax({
+    //         type: 'PUT',
+    //         url: "{{ route('product_update') }}",
+    //         data: {
+    //             id: id,
+    //             name: name,
+    //             type_id: type,
+    //             unit_id: unit,
+    //             stock: stock
+    //         },
+    //         beforeSend: function() {
+    //             $('#submit_edit').hide();
+    //             $('#loading_edit').show();
+    //         },
+    //         success: function(data) {
+    //             $("html, body").animate({
+    //                 scrollTop: 0
+    //             }, "slow");
+    //             $('#updateModal').modal('hide');
+    //             $('#TableList').DataTable().ajax.reload();
+    //             swal("Success!", "The Divisi edit has been successfully!", "success");
+    //             $('#loading_edit').hide();
+    //             $('#submit_edit').show();
+    //         }
+    //     });
+    // };
+
+    // function DeleteAction(id, name) {
+    //     $.ajaxSetup({
+    //         headers: {
+    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         }
+    //     });
+
+    //     swal({
+    //             title: "Are You Sure Delete Product?",
+    //             text: "You Will Delete! " + name,
+    //             icon: "warning",
+    //             buttons: true,
+    //             dangerMode: true,
+    //         })
+    //         .then((willDelete) => {
+    //             if (willDelete) {
+    //                 // swal("Poof! Your imaginary file has been deleted!", {
+    //                 //     icon: "success",
+    //                 // });
+
+    //                 $.ajax({
+    //                     type: "POST",
+    //                     url: "{{ route('product_destroy') }}",
+    //                     data: {
+    //                         '_method': 'DELETE',
+    //                         id: id,
+    //                         name: name
+    //                     },
+
+    //                     success: function(response) {
+    //                         $("html, body").animate({
+    //                             scrollTop: 0
+    //                         }, "slow");
+    //                         swal({
+    //                             type: 'success',
+    //                             title: 'Success!',
+    //                             text: 'Data has been deleted!'
+    //                         });
+    //                         $('#TableList').DataTable().ajax.reload();
+
+    //                     },
+    //                     error: function(xhr) {
+    //                         swal({
+    //                             type: 'error',
+    //                             title: 'Oops...',
+    //                             text: 'Something went wrong!'
+    //                         });
+    //                     }
+    //                 });
+
+    //             } else {
+    //                 swal("Your Files Are Safe Not Delete!");
+    //             }
+    //         });
 
 
-    function StoreUpdate() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        var id = $('#idUpdate').val();
-        var name = $('#nameUpdate').val();
-        // console.log(formSet);
-        $.ajax({
-            type: 'PUT',
-            url: "{{ route('supplier_update') }}",
-            data: {
-                id: id,
-                name: name
-            },
-            beforeSend: function() {
-                $('#submit_edit').hide();
-                $('#loading_edit').show();
-            },
-            success: function(data) {
-                $("html, body").animate({
-                    scrollTop: 0
-                }, "slow");
-                $('#updateModal').modal('hide');
-                $('#TableList').DataTable().ajax.reload();
-                swal("Success!", "The Divisi edit has been successfully!", "success");
-                $('#loading_edit').hide();
-                $('#submit_edit').show();
-            }
-        });
-    };
 
-    function DeleteAction(id, name) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        swal({
-                title: "Are You Sure Delete Divisi?",
-                text: "You Will Delete! " + name,
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    // swal("Poof! Your imaginary file has been deleted!", {
-                    //     icon: "success",
-                    // });
-
-                    $.ajax({
-                        type: "POST",
-                        url: "{{ route('supplier_destroy') }}",
-                        data: {
-                            '_method': 'DELETE',
-                            id: id,
-                            name: name
-                        },
-
-                        success: function(response) {
-                            $("html, body").animate({
-                                scrollTop: 0
-                            }, "slow");
-                            swal({
-                                type: 'success',
-                                title: 'Success!',
-                                text: 'Data has been deleted!'
-                            });
-                            $('#TableList').DataTable().ajax.reload();
-
-                        },
-                        error: function(xhr) {
-                            swal({
-                                type: 'error',
-                                title: 'Oops...',
-                                text: 'Something went wrong!'
-                            });
-                        }
-                    });
-
-                } else {
-                    swal("Your Files Are Safe Not Delete!");
-                }
-            });
-
-
-
-    }
+    // }
 </script>

@@ -2,22 +2,22 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success text-white font-weight-bold">
-                <h5 class="modal-title"><i class="fas fa-building"></i> Create Supplier</h5>
+                <h5 class="modal-title"><i class="fas fa-box"></i> Create Product</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['route' => 'supplier.store', 'method' => 'POST', 'id' => 'createForm', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => 'product.store', 'method' => 'POST', 'id' => 'createForm', 'autocomplete' => 'off']) !!}
                 <div class="form-group">
                     <label for="name" class="font-weight-bold">Name<span class="text-danger">*</span></label>
-                    {!! Form::text('name', null, ['placeholder' => 'Name', 'class' => 'form-control', 'required', 'id'=>'nameCreate']) !!}
+                    {!! Form::text('name', null, ['placeholder' => 'Name', 'class' => 'form-control', 'required', 'id' => 'nameCreate']) !!}
                     <div class="text-danger" style="display: none;" id="error_name">The name field is required</div>
                 </div>
                 <div class="form-group">
                     <label for="name" class="font-weight-bold">Type<span class="text-danger">*</span></label>
-                    <select class="form-control js-example-basic-hide-search" name="type_id"
-                        id="typeIdCreate" data-width="100%" data-placeholder="-- Choose Type --">
+                    <select class="form-control js-example-basic-hide-search" name="type_id" id="typeIdCreate"
+                        data-width="100%" data-placeholder="-- Choose Type --">
                         <option value=""></option>
                         @foreach ($optionType as $item)
                             <option value="{{ $item->id }}"
@@ -29,8 +29,8 @@
                 </div>
                 <div class="form-group">
                     <label for="name" class="font-weight-bold">Unit<span class="text-danger">*</span></label>
-                    <select class="form-control js-example-basic-hide-search" name="unit_id"
-                        id="unitIdCreate" data-width="100%" data-placeholder="-- Choose Unit --">
+                    <select class="form-control js-example-basic-hide-search" name="unit_id" id="unitIdCreate"
+                        data-width="100%" data-placeholder="-- Choose Unit --">
                         <option value=""></option>
                         @foreach ($optionUnit as $item)
                             <option value="{{ $item->id }}"
@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group">
                     <label for="name" class="font-weight-bold">Stock<span class="text-danger">*</span></label>
-                    {!! Form::number('stock', null, ['placeholder' => 'Stock', 'class' => 'form-control', 'required','id'=>'stockCreate']) !!}
+                    {!! Form::number('stock', null, ['placeholder' => 'Stock', 'class' => 'form-control', 'required', 'id' => 'stockCreate']) !!}
                     <div class="text-danger" style="display: none;" id="error_stock">The name field is required</div>
                 </div>
 

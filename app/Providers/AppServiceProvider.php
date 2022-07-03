@@ -69,7 +69,7 @@ class AppServiceProvider extends ServiceProvider
                         'url'  => 'departement',
                     ],
                     [
-                        'text' => 'Product Unit',
+                        'text' => 'Unit',
                         'icon_color' => 'yellow',
                         'url'  => 'unit',
                     ],
@@ -112,7 +112,7 @@ class AppServiceProvider extends ServiceProvider
                     [
                         'text' => 'Outgoing Transaction',
                         'icon_color' => 'green',
-                        'url'  => 'transaction/outgoing',
+                        'url'  => 'transactionoutcoming',
                     ]
                 ],
             ]);

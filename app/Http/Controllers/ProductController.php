@@ -23,6 +23,7 @@ class ProductController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
+
                     $actionData = "'$row->id', '$row->name','$row->unit_id','$row->type_id','$row->stock'";
 
                     $btn = '
