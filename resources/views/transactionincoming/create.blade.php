@@ -2,38 +2,51 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success text-white font-weight-bold">
-                <h5 class="modal-title"><i class="fas fa-building"></i> Create Supplier</h5>
+                <h5 class="modal-title"><i class="fas fa-building"></i> Create Transaction Incoming</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['route' => 'supplier.store', 'method' => 'POST', 'id' => 'createForm', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => 'transactionincoming.store', 'method' => 'POST', 'id' => 'createForm', 'autocomplete' => 'off']) !!}
+                <div class="form-group">
+                    <label for="name" class="font-weight-bold">Supplier<span class="text-danger">*</span></label>
+                    <select class="form-control js-example-basic-hide-search" name="supplier_id"
+                        id="supplierCreate" data-width="100%" data-placeholder="-- Choose Employee --">
+                        <option value=""></option>
+                        @foreach ($optionSupplier as $item)
+                            <option value="{{ $item->id }}"
+                                @if (old('supplier_id') == $item->id) selected="selected" @endif>
+                                {{ $item->name }} </option>
+                        @endforeach
+                    </select>
+                    <div class="text-danger" style="display: none;" id="error_supplier_id">The Employee field is required</div>
+                </div>
                 <div class="form-group">
                     <label for="name" class="font-weight-bold">Employee Name<span class="text-danger">*</span></label>
                     <select class="form-control js-example-basic-hide-search" name="employee_id"
                         id="employeeIdCreate" data-width="100%" data-placeholder="-- Choose Employee --">
                         <option value=""></option>
-                        {{-- @foreach ($optionUnit as $item)
+                        @foreach ($optionEmployee as $item)
                             <option value="{{ $item->id }}"
-                                @if (old('unit_id') == $item->id) selected="selected" @endif>
+                                @if (old('employee_id') == $item->id) selected="selected" @endif>
                                 {{ $item->name }} </option>
-                        @endforeach --}}
+                        @endforeach
                     </select>
-                    <div class="text-danger" style="display: none;" id="error_employee">The Employee field is required</div>
+                    <div class="text-danger" style="display: none;" id="error_employee_id">The Employee field is required</div>
                 </div>
                 <div class="form-group">
-                    <label for="name" class="font-weight-bold">Employee Name<span class="text-danger">*</span></label>
+                    <label for="name" class="font-weight-bold">Product Name<span class="text-danger">*</span></label>
                     <select class="form-control js-example-basic-hide-search" name="product_id"
                         id="productIdCreate" data-width="100%" data-placeholder="-- Choose Product --">
                         <option value=""></option>
-                        {{-- @foreach ($optionUnit as $item)
+                        @foreach ($optionProduct as $item)
                             <option value="{{ $item->id }}"
                                 @if (old('unit_id') == $item->id) selected="selected" @endif>
                                 {{ $item->name }} </option>
-                        @endforeach --}}
+                        @endforeach
                     </select>
-                    <div class="text-danger" style="display: none;" id="error_employee">The Employee field is required</div>
+                    <div class="text-danger" style="display: none;" id="error_product_id">The Product field is required</div>
                 </div>                
                 <div class="form-group">
                     <label for="name" class="font-weight-bold">Unit<span class="text-danger">*</span></label>
@@ -46,15 +59,19 @@
                                 {{ $item->name }} </option>
                         @endforeach
                     </select>
-                    <div class="text-danger" style="display: none;" id="error_unit">The name field is required</div>
+                    <div class="text-danger" style="display: none;" id="error_unit_id">The Unit field is required</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="name" class="font-weight-bold">Stock<span class="text-danger">*</span></label>
-                    {!! Form::number('stock', null, ['placeholder' => 'Stock', 'class' => 'form-control', 'required','id'=>'stockCreate']) !!}
-                    <div class="text-danger" style="display: none;" id="error_stock">The name field is required</div>
+                    <label for="name" class="font-weight-bold">Total<span class="text-danger">*</span></label>
+                    {!! Form::number('total', null, ['placeholder' => 'Stock', 'class' => 'form-control', 'required','id'=>'totalCreate']) !!}
+                    <div class="text-danger" style="display: none;" id="error_total">The Total field is required</div>
                 </div>
-
+                <div class="form-group">
+                    <label for="name" class="font-weight-bold">Date<span class="text-danger">*</span></label>
+                    {!! Form::date('date', null, ['placeholder' => 'Stock', 'class' => 'form-control', 'required','id'=>'dateCreate']) !!}
+                    <div class="text-danger" style="display: none;" id="error_date">The Date field is required</div>
+                </div>
                 {!! Form::close() !!}
             </div>
 

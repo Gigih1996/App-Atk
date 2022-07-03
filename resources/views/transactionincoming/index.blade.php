@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Transaction - Index')
+@section('title', 'Transaction Incoming- Index')
 @section('content')
     <div class="row">
         <div class="col-md-12 mt-3">
@@ -7,7 +7,7 @@
                 <div class="card-header bg-light">
                     <div class="row">
                         <div class="col-md-7 col-lg-6">
-                            <h3><i class="fas fa-building font-weight-bold"></i> Transaction Incoming- Index</h3>
+                            <h3><i class="fas fa-building font-weight-bold"></i> Transaction Incoming - Index</h3>
                         </div>
                         <div class="col-md-5 col-lg-6 text-right">
                             <button class="btn btn-md btn-dark" data-toggle="modal" onclick="CreateAction()"
@@ -28,7 +28,12 @@
                             <thead>
                                 <tr>
                                     <th class="text-center font-weight-bold text-dark" width="45">No</th>
-                                    <th class="text-center font-weight-bold text-dark">ID</th>
+                                    <th class="text-center font-weight-bold text-dark">Employee</th>
+                                    <th class="text-center font-weight-bold text-dark">Products</th>
+                                    <th class="text-center font-weight-bold text-dark">Total</th>
+                                    <th class="text-center font-weight-bold text-dark">Unit</th>
+                                    <th class="text-center font-weight-bold text-dark">Supplier</th>
+                                    <th class="text-center font-weight-bold text-dark">Date</th>
                                     <th class="text-center font-weight-bold text-dark">Action</th>
                                 </tr>
                             </thead>
@@ -149,9 +154,12 @@
                     orderable: false,
                     searchable: false
                 },
-                {
-                    data: 'id'
-                },
+                { data: 'employee'},
+                { data: 'product'},
+                { data: 'total'},
+                { data: 'unit'},
+                { data: 'supplier'},
+                { data: 'newDate'},
                 {
                     data: 'action',
                     sortable: false,
@@ -168,16 +176,17 @@
     });
 
     function CreateAction() {
-        $('#nameCreate').removeClass('is-invalid');
-        $('#error_name').hide();
-        $('#error_type').hide();
-        $('#error_unit').hide();
-        $('#error_stock').hide();
+        $('#error_employee_id').hide();
+        $('#error_type_id').hide();
+        $('#error_unit_id').hide();
+        $('#error_total').hide();
+        $('#error_date').hide();
 
-        $('#nameCreate').val('');
-        $('#typeIdCreate').val('').select2('');
+        $('#employeeIdCreate').val('').select2('');
+        $('#productIdCreate').val('').select2('');
         $('#unitIdCreate').val('').select2('');
-        $('#stockCreate').val('');
+        $('#totalCreate').val('');
+        $('#dateCreate').val('');
 
         $('#loading').hide();
         $('#submit').show();
@@ -191,7 +200,6 @@
         });
 
         var formSet = $("#createForm").serializeArray();
-        console.log(formSet);
         var error = 0;
         $.each(formSet, function(key, value) {
             if (value.value == '') {
@@ -204,7 +212,7 @@
         if (error == 0) {
             $.ajax({
                 type: 'POST',
-                url: "{{ route('product.store') }}",
+                url: "{{ route('transactionincoming.store') }}",
                 data: formSet,
                 beforeSend: function() {
                     $('#loading').show();
@@ -224,12 +232,14 @@
         }
     }
 
-    function EditAction(a,b,c,d,e) {
+    function EditAction(a,b,c,d,e,f,g) {
         $('#idUpdate').val(a);
-        $('#nameUpdate').val(b);
-        $('#typeIdUpdate').val(c).select2('');
-        $('#unitIdUpdate').val(d).select2('');
-        $('#stockUpdate').val(e);
+        $('#supplierIdUpdate').val(b).select2('');
+        $('#employeeIdUpdate').val(c).select2('');
+        $('#productIdUpdate').val(d).select2('');
+        $('#unitIdUpdate').val(e).select2('');
+        $('#totalUpdate').val(f);
+        $('#dateUpdate').val(g);
     }
 
     function StoreUpdate() {
@@ -239,20 +249,24 @@
             }
         });
         var id = $('#idUpdate').val();
-        var name = $('#nameUpdate').val();
-        var type = $('#typeIdUpdate').val();
-        var unit = $('#unitIdUpdate').val();
-        var stock = $('#stockUpdate').val();
+        var supplier_id = $('#supplierIdUpdate').val();
+        var employee_id = $('#employeeIdUpdate').val();
+        var product_id = $('#productIdUpdate').val();
+        var unit_id = $('#unitIdUpdate').val();
+        var total = $('#totalUpdate').val();
+        var date = $('#dateUpdate').val();
         // console.log(formSet);
         $.ajax({
             type: 'PUT',
-            url: "{{ route('product_update') }}",
+            url: "{{ route('transactionincoming_update') }}",
             data: {
                 id: id,
-                name: name,
-                type_id: type,
-                unit_id: unit,
-                stock: stock
+                supplier_id: supplier_id,
+                employee_id: employee_id,
+                product_id: product_id,
+                unit_id: unit_id,
+                total: total,
+                date: date,
             },
             beforeSend: function() {
                 $('#submit_edit').hide();
@@ -279,7 +293,7 @@
         });
 
         swal({
-                title: "Are You Sure Delete Product?",
+                title: "Are You Sure Delete Transaction?",
                 text: "You Will Delete! " + name,
                 icon: "warning",
                 buttons: true,
@@ -293,7 +307,7 @@
 
                     $.ajax({
                         type: "POST",
-                        url: "{{ route('product_destroy') }}",
+                        url: "{{ route('transactionincoming_destroy') }}",
                         data: {
                             '_method': 'DELETE',
                             id: id,

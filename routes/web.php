@@ -73,7 +73,7 @@ Route::delete('type/destroy', [TypeController::class, 'destroy'])->name('type_de
 
 //TRANSACTION INCOMING
 Route::resource('transactionincoming', TransactionIncomingController::class);
-Route::put('transactionincoming/update', [TransactionIncomingController::class, 'update'])->name('transaction_update_incoming');
+Route::put('transactionincoming/update', [TransactionIncomingController::class, 'update'])->name('transactionincoming_update');
 Route::delete('transactionincoming/destroy', [TypeController::class, 'destroy'])->name('transactionincoming_destroy');
 
 
