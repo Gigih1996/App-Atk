@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KabinetController;
 use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
@@ -74,6 +75,12 @@ Route::delete('type/destroy', [TypeController::class, 'destroy'])->name('type_de
 Route::resource('transactionincoming', TransactionIncomingController::class);
 Route::put('transactionincoming/update', [TransactionIncomingController::class, 'update'])->name('transaction_update_incoming');
 Route::delete('transactionincoming/destroy', [TypeController::class, 'destroy'])->name('transactionincoming_destroy');
+
+//Employee
+Route::resource('employee', EmployeeController::class);
+Route::post('employee/store', [EmployeeController::class, 'store'])->name('employee_store');
+Route::put('employee/update', [EmployeeController::class, 'update'])->name('employee_update');
+Route::delete('employee/destroy', [EmployeeController::class, 'destroy'])->name('employee_destroy');
 
 
 // //SETTING
