@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Product - Index')
+@section('title', 'Transaction - Index')
 @section('content')
     <div class="row">
         <div class="col-md-12 mt-3">
@@ -7,7 +7,7 @@
                 <div class="card-header bg-light">
                     <div class="row">
                         <div class="col-md-7 col-lg-6">
-                            <h3><i class="fas fa-building font-weight-bold"></i> Product - Index</h3>
+                            <h3><i class="fas fa-building font-weight-bold"></i> Transaction Incoming- Index</h3>
                         </div>
                         <div class="col-md-5 col-lg-6 text-right">
                             <button class="btn btn-md btn-dark" data-toggle="modal" onclick="CreateAction()"
@@ -16,8 +16,8 @@
                             </button>
                         </div>
                     </div>
-                    @include('product.create')
-                    @include('product.edit')
+                    @include('transactionincoming.create')
+                    @include('transactionincoming.edit')
                     @include('sweetalert::alert')
 
                 </div>
@@ -28,8 +28,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-center font-weight-bold text-dark" width="45">No</th>
-                                    <th class="text-center font-weight-bold text-dark">Name</th>
-                                    <th class="text-center font-weight-bold text-dark">Stock</th>
+                                    <th class="text-center font-weight-bold text-dark">ID</th>
                                     <th class="text-center font-weight-bold text-dark">Action</th>
                                 </tr>
                             </thead>
@@ -143,7 +142,7 @@
             },
 
             serverSide: true,
-            ajax: "{{ route('product.index') }}",
+            ajax: "{{ route('transactionincoming.index') }}",
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
@@ -151,10 +150,7 @@
                     searchable: false
                 },
                 {
-                    data: 'name'
-                },
-                {
-                    data: 'stock'
+                    data: 'id'
                 },
                 {
                     data: 'action',

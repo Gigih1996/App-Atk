@@ -10,6 +10,8 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionIncomingController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,6 +70,11 @@ Route::delete('product/destroy', [ProductController::class, 'destroy'])->name('p
 Route::resource('type', TypeController::class);
 Route::put('type/update', [TypeController::class, 'update'])->name('type_update');
 Route::delete('type/destroy', [TypeController::class, 'destroy'])->name('type_destroy');
+
+//TRANSACTION INCOMING
+Route::resource('transactionincoming', TransactionIncomingController::class);
+Route::put('transactionincoming/update', [TransactionIncomingController::class, 'update'])->name('transaction_update_incoming');
+Route::delete('transactionincoming/destroy', [TypeController::class, 'destroy'])->name('transactionincoming_destroy');
 
 //Employee
 Route::resource('employee', EmployeeController::class);
