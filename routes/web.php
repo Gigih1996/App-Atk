@@ -6,6 +6,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\KabinetController;
 use App\Http\Controllers\DepartementController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SupplierController;
@@ -63,13 +64,17 @@ Route::resource('product', ProductController::class);
 Route::put('product/update', [ProductController::class, 'update'])->name('product_update');
 Route::delete('product/destroy', [ProductController::class, 'destroy'])->name('product_destroy');
 
-
-
-
 //Type
 Route::resource('type', TypeController::class);
 Route::put('type/update', [TypeController::class, 'update'])->name('type_update');
 Route::delete('type/destroy', [TypeController::class, 'destroy'])->name('type_destroy');
+
+//Employee
+Route::resource('employee', EmployeeController::class);
+Route::post('employee/store', [EmployeeController::class, 'store'])->name('employee_store');
+Route::put('employee/update', [EmployeeController::class, 'update'])->name('employee_update');
+Route::delete('employee/destroy', [EmployeeController::class, 'destroy'])->name('employee_destroy');
+
 
 // //SETTING
 // Route::resource('media_arsip', MediaArsipController::class);

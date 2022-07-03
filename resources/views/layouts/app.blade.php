@@ -94,7 +94,7 @@
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                     data-toggle="dropdown">
-                                    <i class="fa fa-upload"></i> Digital Arsip
+                                    <i class="fa fa-upload"></i> ATK System
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
