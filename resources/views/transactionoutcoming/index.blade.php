@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Outgoing Transaction - Index')
+@section('title', 'Transaction Incoming- Index')
 @section('content')
     <div class="row">
         <div class="col-md-12 mt-3">
@@ -7,7 +7,7 @@
                 <div class="card-header bg-light">
                     <div class="row">
                         <div class="col-md-7 col-lg-6">
-                            <h3><i class="far fa-id-card"></i> Outgoing Transaction - Index</h3>
+                            <h3><i class="fas fa-building font-weight-bold"></i> Transaction Outgoing - Index</h3>
                         </div>
                         <div class="col-md-5 col-lg-6 text-right">
                             <button class="btn btn-md btn-dark" data-toggle="modal" onclick="CreateAction()"
@@ -19,17 +19,19 @@
                     @include('transactionoutcoming.create')
                     @include('transactionoutcoming.edit')
                     @include('sweetalert::alert')
+
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
+                        <!-- {{-- @if (count($karyawan) > 0) --}} -->
                         <table class="table table-bordered table-striped" width="100%" id="TableList">
                             <thead>
                                 <tr>
                                     <th class="text-center font-weight-bold text-dark" width="45">No</th>
                                     <th class="text-center font-weight-bold text-dark">Employee</th>
-                                    <th class="text-center font-weight-bold text-dark">Product</th>
-                                    <th class="text-center font-weight-bold text-dark">Unit</th>
+                                    <th class="text-center font-weight-bold text-dark">Products</th>
                                     <th class="text-center font-weight-bold text-dark">Total</th>
+                                    <th class="text-center font-weight-bold text-dark">Unit</th>
                                     <th class="text-center font-weight-bold text-dark">Supplier</th>
                                     <th class="text-center font-weight-bold text-dark">Date</th>
                                     <th class="text-center font-weight-bold text-dark">Action</th>
@@ -73,12 +75,12 @@
     }
 
     .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 26px;
-        font-size: 15px;
+        line-height: 35px;
+        font-size: 11px;
     }
 
     .select2-container--default .select2-selection--single .select2-selection__arrow {
-        top: 0.2px;
+        top: 6.2px;
         right: 5px;
     }
 
@@ -114,12 +116,18 @@
 <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap4.min.js" defer></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" defer></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js" defer></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js" defer></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js" defer></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.10/sorting/numeric-comma.js" defer></script> --}}
+
 <script>
     $(function() {
         $('.js-example-basic-hide-search').select2({
             minimumResultsForSearch: Infinity
         });
-        $('.js-example-basic-single').select2();
     });
     $(document).ready(function() {
 
@@ -146,31 +154,18 @@
                     orderable: false,
                     searchable: false
                 },
-                {
-                    data: 'employee_id'
-                },
-                {
-                    data: 'product_id'
-                },
-                {
-                    data: 'unit_id'
-                },
-                {
-                    data: 'total'
-                },
-                {
-                    data: 'supplier_id'
-                },
-                {
-                    data: 'date'
-                },
+                { data: 'employee'},
+                { data: 'product'},
+                { data: 'total'},
+                { data: 'unit'},
+                { data: 'supplier'},
+                { data: 'newDate'},
                 {
                     data: 'action',
                     sortable: false,
                     searchable: false
                 },
             ],
-
             columnDefs: [{
                 targets: [-1],
                 className: 'dt-body-center'
@@ -181,16 +176,17 @@
     });
 
     function CreateAction() {
-        $('#nameCreate').removeClass('is-invalid');
-        $('#error_name').hide();
-        $('#error_type').hide();
-        $('#error_unit').hide();
-        $('#error_stock').hide();
+        $('#error_employee_id').hide();
+        $('#error_type_id').hide();
+        $('#error_unit_id').hide();
+        $('#error_total').hide();
+        $('#error_date').hide();
 
-        $('#nameCreate').val('');
-        $('#typeIdCreate').val('').select2('');
+        $('#employeeIdCreate').val('').select2('');
+        $('#productIdCreate').val('').select2('');
         $('#unitIdCreate').val('').select2('');
-        $('#stockCreate').val('');
+        $('#totalCreate').val('');
+        $('#dateCreate').val('');
 
         $('#loading').hide();
         $('#submit').show();
@@ -204,7 +200,6 @@
         });
 
         var formSet = $("#createForm").serializeArray();
-        console.log(formSet);
         var error = 0;
         $.each(formSet, function(key, value) {
             if (value.value == '') {
@@ -217,7 +212,7 @@
         if (error == 0) {
             $.ajax({
                 type: 'POST',
-                url: "{{ route('product.store') }}",
+                url: "{{ route('transactionoutcoming.store') }}",
                 data: formSet,
                 beforeSend: function() {
                     $('#loading').show();
@@ -237,109 +232,115 @@
         }
     }
 
-    // function EditAction(a, b, c, d, e) {
-    //     $('#idUpdate').val(a);
-    //     $('#nameUpdate').val(b);
-    //     $('#typeIdUpdate').val(c).select2('');
-    //     $('#unitIdUpdate').val(d).select2('');
-    //     $('#stockUpdate').val(e);
-    // }
+    function EditAction(a,b,c,d,e,f,g) {
+        $('#idUpdate').val(a);
+        $('#supplierIdUpdate').val(b).select2('');
+        $('#employeeIdUpdate').val(c).select2('');
+        $('#productIdUpdate').val(d).select2('');
+        $('#unitIdUpdate').val(e).select2('');
+        $('#totalUpdate').val(f);
+        $('#dateUpdate').val(g);
+    }
 
-    // function StoreUpdate() {
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         }
-    //     });
-    //     var id = $('#idUpdate').val();
-    //     var name = $('#nameUpdate').val();
-    //     var type = $('#typeIdUpdate').val();
-    //     var unit = $('#unitIdUpdate').val();
-    //     var stock = $('#stockUpdate').val();
-    //     // console.log(formSet);
-    //     $.ajax({
-    //         type: 'PUT',
-    //         url: "{{ route('product_update') }}",
-    //         data: {
-    //             id: id,
-    //             name: name,
-    //             type_id: type,
-    //             unit_id: unit,
-    //             stock: stock
-    //         },
-    //         beforeSend: function() {
-    //             $('#submit_edit').hide();
-    //             $('#loading_edit').show();
-    //         },
-    //         success: function(data) {
-    //             $("html, body").animate({
-    //                 scrollTop: 0
-    //             }, "slow");
-    //             $('#updateModal').modal('hide');
-    //             $('#TableList').DataTable().ajax.reload();
-    //             swal("Success!", "The Divisi edit has been successfully!", "success");
-    //             $('#loading_edit').hide();
-    //             $('#submit_edit').show();
-    //         }
-    //     });
-    // };
+    function StoreUpdate() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var id = $('#idUpdate').val();
+        var supplier_id = $('#supplierIdUpdate').val();
+        var employee_id = $('#employeeIdUpdate').val();
+        var product_id = $('#productIdUpdate').val();
+        var unit_id = $('#unitIdUpdate').val();
+        var total = $('#totalUpdate').val();
+        var date = $('#dateUpdate').val();
+        // console.log(formSet);
+        $.ajax({
+            type: 'PUT',
+            url: "{{ route('transactionoutcoming_update') }}",
+            data: {
+                id: id,
+                supplier_id: supplier_id,
+                employee_id: employee_id,
+                product_id: product_id,
+                unit_id: unit_id,
+                total: total,
+                date: date,
+            },
+            beforeSend: function() {
+                $('#submit_edit').hide();
+                $('#loading_edit').show();
+            },
+            success: function(data) {
+                $("html, body").animate({
+                    scrollTop: 0
+                }, "slow");
+                $('#updateModal').modal('hide');
+                $('#TableList').DataTable().ajax.reload();
+                swal("Success!", "The Divisi edit has been successfully!", "success");
+                $('#loading_edit').hide();
+                $('#submit_edit').show();
+            }
+        });
+    };
 
-    // function DeleteAction(id, name) {
-    //     $.ajaxSetup({
-    //         headers: {
-    //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         }
-    //     });
+    function DeleteAction(id, name) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
-    //     swal({
-    //             title: "Are You Sure Delete Product?",
-    //             text: "You Will Delete! " + name,
-    //             icon: "warning",
-    //             buttons: true,
-    //             dangerMode: true,
-    //         })
-    //         .then((willDelete) => {
-    //             if (willDelete) {
-    //                 // swal("Poof! Your imaginary file has been deleted!", {
-    //                 //     icon: "success",
-    //                 // });
+        swal({
+                title: "Are You Sure Delete Transaction?",
+                text: "You Will Delete! " + name,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    // swal("Poof! Your imaginary file has been deleted!", {
+                    //     icon: "success",
+                    // });
 
-    //                 $.ajax({
-    //                     type: "POST",
-    //                     url: "{{ route('product_destroy') }}",
-    //                     data: {
-    //                         '_method': 'DELETE',
-    //                         id: id,
-    //                         name: name
-    //                     },
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('transactionoutcoming_destroy') }}",
+                        data: {
+                            '_method': 'DELETE',
+                            id: id,
+                            name: name
+                        },
 
-    //                     success: function(response) {
-    //                         $("html, body").animate({
-    //                             scrollTop: 0
-    //                         }, "slow");
-    //                         swal({
-    //                             type: 'success',
-    //                             title: 'Success!',
-    //                             text: 'Data has been deleted!'
-    //                         });
-    //                         $('#TableList').DataTable().ajax.reload();
+                        success: function(response) {
+                            $("html, body").animate({
+                                scrollTop: 0
+                            }, "slow");
+                            swal({
+                                type: 'success',
+                                title: 'Success!',
+                                text: 'Data has been deleted!'
+                            });
+                            $('#TableList').DataTable().ajax.reload();
 
-    //                     },
-    //                     error: function(xhr) {
-    //                         swal({
-    //                             type: 'error',
-    //                             title: 'Oops...',
-    //                             text: 'Something went wrong!'
-    //                         });
-    //                     }
-    //                 });
+                        },
+                        error: function(xhr) {
+                            swal({
+                                type: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!'
+                            });
+                        }
+                    });
 
-    //             } else {
-    //                 swal("Your Files Are Safe Not Delete!");
-    //             }
-    //         });
+                } else {
+                    swal("Your Files Are Safe Not Delete!");
+                }
+            });
 
 
 
-    // }
+    }
 </script>

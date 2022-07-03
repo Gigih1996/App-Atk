@@ -19,4 +19,11 @@ class Transaction extends Model
         'type',
         'supplier_id'
     ];
+
+
+    function updateStok($param){
+        $product = Product::find($param['product_id']);
+        $product->stock = $param['type']=='In' ? $product->stock+$param['total'] : $product->stock-$param['total'];
+        return $product->save();
+    }
 }
