@@ -31,6 +31,14 @@ class HomeController extends Controller
         // $aktif = DigitalArsip::where('status_id', 1)->get()->count();
         // $inaktif = DigitalArsip::where('status_id', 2)->get()->count();
         // $permanen = DigitalArsip::where('status_id', 3)->get()->count();
-        return view('home');
+
+        $label = [
+            'product' => 1,
+            'incoming' => 2,
+            'outgoing' => 3,
+        ];
+
+        $listRequestor = [];
+        return view('home',compact('label','listRequestor'));
     }
 }
