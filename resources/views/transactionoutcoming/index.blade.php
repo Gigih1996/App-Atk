@@ -7,7 +7,7 @@
                 <div class="card-header bg-light">
                     <div class="row">
                         <div class="col-md-7 col-lg-6">
-                            <h3><i class="fas fa-building font-weight-bold"></i> Transaction Outgoing - Index</h3>
+                            <h3><i class="fas fa-box-open"></i> Transaction Outgoing - Index</h3>
                         </div>
                         <div class="col-md-5 col-lg-6 text-right">
                             <button class="btn btn-md btn-dark" data-toggle="modal" onclick="CreateAction()"
@@ -75,12 +75,12 @@
     }
 
     .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 35px;
-        font-size: 11px;
+        line-height: 26px;
+        font-size: 15px;
     }
 
     .select2-container--default .select2-selection--single .select2-selection__arrow {
-        top: 6.2px;
+        top: 0.2px;
         right: 5px;
     }
 
@@ -154,12 +154,24 @@
                     orderable: false,
                     searchable: false
                 },
-                { data: 'employee'},
-                { data: 'product'},
-                { data: 'total'},
-                { data: 'unit'},
-                { data: 'supplier'},
-                { data: 'newDate'},
+                {
+                    data: 'employee'
+                },
+                {
+                    data: 'product'
+                },
+                {
+                    data: 'total'
+                },
+                {
+                    data: 'unit'
+                },
+                {
+                    data: 'supplier'
+                },
+                {
+                    data: 'newDate'
+                },
                 {
                     data: 'action',
                     sortable: false,
@@ -167,7 +179,7 @@
                 },
             ],
             columnDefs: [{
-                targets: [-1],
+                targets: [-1, -2, -3, -4, -5, -6],
                 className: 'dt-body-center'
             }]
         });
@@ -232,7 +244,7 @@
         }
     }
 
-    function EditAction(a,b,c,d,e,f,g) {
+    function EditAction(a, b, c, d, e, f, g) {
         $('#idUpdate').val(a);
         $('#supplierIdUpdate').val(b).select2('');
         $('#employeeIdUpdate').val(c).select2('');
