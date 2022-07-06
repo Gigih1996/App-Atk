@@ -137,7 +137,7 @@ class AppServiceProvider extends ServiceProvider
                     [
                         'text' => 'Manage',
                         'icon_color' => 'yellow',
-                        'url'  => 'reporting',
+                        'url'  => 'PDF/index',
                     ],
                 ],
             ]);
