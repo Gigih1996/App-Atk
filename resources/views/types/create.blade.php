@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success text-white font-weight-bold">
-                <h5 class="modal-title"><i class="fas fa-building"></i> Create Type</h5>
+                <h5 class="modal-title"><i class="fab fa-font-awesome-flag"></i> Create Type</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

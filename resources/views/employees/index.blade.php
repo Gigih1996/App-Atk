@@ -162,7 +162,7 @@
                     data: 'name',
                 },
                 {
-                    data: 'divisi_name'
+                    data: 'departement_name'
                 },
                 {
                     data: 'action',
@@ -212,7 +212,7 @@
         if (error == 0) {
             $.ajax({
                 type: 'POST',
-                url: "{{ route('employee_store') }}",
+                url: "{{ route('employee.store') }}",
                 data: formSet,
                 beforeSend: function() {
                     $('#loading').show();
@@ -225,7 +225,7 @@
                     $('#success').show();
                     $('#loading').hide();
 
-                    $('#CreateEmployee')[0].reset();
+                    $('#CreateEmployeeForm')[0].reset();
                 },
 
             });

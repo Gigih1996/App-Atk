@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Type - Index')
+@section('title', 'Transaction Incoming- Index')
 @section('content')
     <div class="row">
         <div class="col-md-12 mt-3">
@@ -7,28 +7,33 @@
                 <div class="card-header bg-light">
                     <div class="row">
                         <div class="col-md-7 col-lg-6">
-                            <h3><i class="fab fa-font-awesome-flag"></i> Type - Index</h3>
+                            <h3><i class="fas fa-box-open"></i> Transaction Outgoing - Index</h3>
                         </div>
                         <div class="col-md-5 col-lg-6 text-right">
-                            <button class="btn btn-md btn-dark" data-toggle="modal" onclick="createType()"
-                                data-target="#createTypeModal">
+                            <button class="btn btn-md btn-dark" data-toggle="modal" onclick="CreateAction()"
+                                data-target="#createModal">
                                 <i class="fa fa-plus-circle fa-sm"></i> Create
                             </button>
                         </div>
                     </div>
-                    @include('types.create')
-                    @include('types.edit')
+                    @include('transactionoutcoming.create')
+                    @include('transactionoutcoming.edit')
                     @include('sweetalert::alert')
 
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        {{-- @if (count($karyawan) > 0) --}}
-                        <table class="table table-bordered table-striped" width="100%" id="TableType">
+                        <!-- {{-- @if (count($karyawan) > 0) --}} -->
+                        <table class="table table-bordered table-striped" width="100%" id="TableList">
                             <thead>
                                 <tr>
                                     <th class="text-center font-weight-bold text-dark" width="45">No</th>
-                                    <th class="text-center font-weight-bold text-dark">Name</th>
+                                    <th class="text-center font-weight-bold text-dark">Employee</th>
+                                    <th class="text-center font-weight-bold text-dark">Products</th>
+                                    <th class="text-center font-weight-bold text-dark">Total</th>
+                                    <th class="text-center font-weight-bold text-dark">Unit</th>
+                                    <th class="text-center font-weight-bold text-dark">Supplier</th>
+                                    <th class="text-center font-weight-bold text-dark">Date</th>
                                     <th class="text-center font-weight-bold text-dark">Action</th>
                                 </tr>
                             </thead>
@@ -70,12 +75,12 @@
     }
 
     .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 35px;
-        font-size: 11px;
+        line-height: 26px;
+        font-size: 15px;
     }
 
     .select2-container--default .select2-selection--single .select2-selection__arrow {
-        top: 6.2px;
+        top: 0.2px;
         right: 5px;
     }
 
@@ -111,6 +116,12 @@
 <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.bootstrap4.min.js" defer></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" defer></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js" defer></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js" defer></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.colVis.min.js" defer></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.10/sorting/numeric-comma.js" defer></script> --}}
 
 <script>
     $(function() {
@@ -120,7 +131,7 @@
     });
     $(document).ready(function() {
 
-        var table = $('#TableType').DataTable({
+        var table = $('#TableList').DataTable({
             processing: true,
             lengthChange: false,
 
@@ -136,7 +147,7 @@
             },
 
             serverSide: true,
-            ajax: "{{ route('type.index') }}",
+            ajax: "{{ route('transactionoutcoming.index') }}",
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
@@ -144,7 +155,22 @@
                     searchable: false
                 },
                 {
-                    data: 'name'
+                    data: 'employee'
+                },
+                {
+                    data: 'product'
+                },
+                {
+                    data: 'total'
+                },
+                {
+                    data: 'unit'
+                },
+                {
+                    data: 'supplier'
+                },
+                {
+                    data: 'newDate'
                 },
                 {
                     data: 'action',
@@ -153,7 +179,7 @@
                 },
             ],
             columnDefs: [{
-                targets: [-1],
+                targets: [-1, -2, -3, -4, -5, -6],
                 className: 'dt-body-center'
             }]
         });
@@ -161,23 +187,31 @@
             .appendTo('#example_wrapper .col-md-6:eq(0)');
     });
 
-    function createType() {
-        $('#name_type').removeClass('is-invalid');
-        $('#error_name').hide();
-        $('#name_type').val('');
+    function CreateAction() {
+        $('#error_employee_id').hide();
+        $('#error_type_id').hide();
+        $('#error_unit_id').hide();
+        $('#error_total').hide();
+        $('#error_date').hide();
+
+        $('#employeeIdCreate').val('').select2('');
+        $('#productIdCreate').val('').select2('');
+        $('#unitIdCreate').val('').select2('');
+        $('#totalCreate').val('');
+        $('#dateCreate').val('');
+
         $('#loading').hide();
         $('#submit').show();
     }
 
-    function StoreType() {
+    function StoreCreate() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
-        var formSet = $("#TypeForm").serializeArray();
-        console.log(formSet);
+        var formSet = $("#createForm").serializeArray();
         var error = 0;
         $.each(formSet, function(key, value) {
             if (value.value == '') {
@@ -190,60 +224,80 @@
         if (error == 0) {
             $.ajax({
                 type: 'POST',
-                url: "{{ route('type.store') }}",
+                url: "{{ route('transactionoutcoming.store') }}",
                 data: formSet,
                 beforeSend: function() {
                     $('#loading').show();
                     $('#submit').hide();
                 },
                 success: function(data) {
-                    $('#createTypeModal').modal('hide');
-                    $('#TableType').DataTable().ajax.reload();
-                    swal("Success!", "The Unit create has been successfully!", "success");
+                    $('#createModal').modal('hide');
+                    $('#TableList').DataTable().ajax.reload();
+                    swal("Success!", "The Divisi create has been successfully!", "success");
                     $('#success').show();
                     $('#loading').hide();
 
-                    $('#TypeForm')[0].reset();
+                    $('#createForm')[0].reset();
                 },
 
             });
         }
     }
 
-    function UpdateType() {
+    function EditAction(a, b, c, d, e, f, g) {
+        $('#idUpdate').val(a);
+        $('#supplierIdUpdate').val(b).select2('');
+        $('#employeeIdUpdate').val(c).select2('');
+        $('#productIdUpdate').val(d).select2('');
+        $('#unitIdUpdate').val(e).select2('');
+        $('#totalUpdate').val(f);
+        $('#dateUpdate').val(g);
+    }
+
+    function StoreUpdate() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        var id = $('#id_type').val();
-        var name = $('#NameEditType').val();
+        var id = $('#idUpdate').val();
+        var supplier_id = $('#supplierIdUpdate').val();
+        var employee_id = $('#employeeIdUpdate').val();
+        var product_id = $('#productIdUpdate').val();
+        var unit_id = $('#unitIdUpdate').val();
+        var total = $('#totalUpdate').val();
+        var date = $('#dateUpdate').val();
         // console.log(formSet);
         $.ajax({
             type: 'PUT',
-            url: "{{ route('type_update') }}",
+            url: "{{ route('transactionoutcoming_update') }}",
             data: {
                 id: id,
-                name: name
+                supplier_id: supplier_id,
+                employee_id: employee_id,
+                product_id: product_id,
+                unit_id: unit_id,
+                total: total,
+                date: date,
             },
             beforeSend: function() {
-                $('#submit_edit_type').hide();
-                $('#loading_edit_type').show();
+                $('#submit_edit').hide();
+                $('#loading_edit').show();
             },
             success: function(data) {
                 $("html, body").animate({
                     scrollTop: 0
                 }, "slow");
-                $('#EditTypeModal').modal('hide');
-                $('#TableType').DataTable().ajax.reload();
-                swal("Success!", "The Type edit has been successfully!", "success");
-                $('#loading_edit_type').hide();
-                $('#submit_edit_type').show();
+                $('#updateModal').modal('hide');
+                $('#TableList').DataTable().ajax.reload();
+                swal("Success!", "The Divisi edit has been successfully!", "success");
+                $('#loading_edit').hide();
+                $('#submit_edit').show();
             }
         });
     };
 
-    function DeleteType(id, name) {
+    function DeleteAction(id, name) {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -251,7 +305,7 @@
         });
 
         swal({
-                title: "Are You Sure Delete Unit?",
+                title: "Are You Sure Delete Transaction?",
                 text: "You Will Delete! " + name,
                 icon: "warning",
                 buttons: true,
@@ -259,10 +313,13 @@
             })
             .then((willDelete) => {
                 if (willDelete) {
+                    // swal("Poof! Your imaginary file has been deleted!", {
+                    //     icon: "success",
+                    // });
 
                     $.ajax({
                         type: "POST",
-                        url: "{{ route('type_destroy') }}",
+                        url: "{{ route('transactionoutcoming_destroy') }}",
                         data: {
                             '_method': 'DELETE',
                             id: id,
@@ -278,7 +335,7 @@
                                 title: 'Success!',
                                 text: 'Data has been deleted!'
                             });
-                            $('#TableType').DataTable().ajax.reload();
+                            $('#TableList').DataTable().ajax.reload();
 
                         },
                         error: function(xhr) {
@@ -294,6 +351,7 @@
                     swal("Your Files Are Safe Not Delete!");
                 }
             });
+
 
 
     }

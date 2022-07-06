@@ -17,7 +17,7 @@
 
                     <div class="form-group">
                         <label for="divisi_id" class="font-weight-bold">Divisi<span class="text-danger">*</span></label>
-                        <select class="form-control js-example-basic-single" name="divisi_id" id="divisi_id"
+                        <select class="form-control js-example-basic-single" name="departement_id" id="divisi_id"
                             data-width="100%" data-placeholder="-- Choose Divisi --">
                             <option value=""></option>
                             @foreach ($divisi as $item)

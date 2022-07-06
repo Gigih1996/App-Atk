@@ -3,7 +3,12 @@
 namespace App\Providers;
 
 use App\Models\Departement;
+use App\Models\Employee;
 use App\Models\Kabinet;
+use App\Models\Product;
+use App\Models\Supplier;
+use App\Models\Type;
+use App\Models\Unit;
 use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
@@ -69,27 +74,32 @@ class AppServiceProvider extends ServiceProvider
                         'url'  => 'departement',
                     ],
                     [
-                        'text' => 'Product Unit',
+                        'text' => 'Unit',
+                        'label' => Unit::count(),
                         'icon_color' => 'yellow',
                         'url'  => 'unit',
                     ],
                     [
                         'text' => 'Type',
+                        'label' => Type::count(),
                         'icon_color' => 'yellow',
                         'url'  => 'type',
                     ],
                     [
                         'text' => 'Supplier',
+                        'label' => Supplier::count(),
                         'icon_color' => 'yellow',
                         'url'  => 'supplier',
                     ],
                     [
                         'text' => 'Product',
+                        'label' => Product::count(),
                         'icon_color' => 'yellow',
                         'url'  => 'product',
                     ],
                     [
                         'text' => 'Employee',
+                        'label' => Employee::count(),
                         'icon_color' => 'yellow',
                         'url'  => 'employee',
                     ],
@@ -112,7 +122,7 @@ class AppServiceProvider extends ServiceProvider
                     [
                         'text' => 'Outgoing Transaction',
                         'icon_color' => 'green',
-                        'url'  => 'transaction/outgoing',
+                        'url'  => 'transactionoutcoming',
                     ]
                 ],
             ]);
@@ -127,7 +137,7 @@ class AppServiceProvider extends ServiceProvider
                     [
                         'text' => 'Manage',
                         'icon_color' => 'yellow',
-                        'url'  => 'reporting',
+                        'url'  => 'PDF/index',
                     ],
                 ],
             ]);

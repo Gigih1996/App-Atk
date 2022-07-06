@@ -19,11 +19,16 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Product::select('*')->get();
+            $data = Product::leftjoin('units', 'products.unit_id', '=', 'units.id')
+                ->leftjoin('types', 'products.type_id', '=', 'types.id')
+                ->select(['products.*', 'units.name AS unit_name', 'types.name AS types_name'])
+                ->orderBy('id', 'DESC')
+                ->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
-                    $actionData = "'$row->id', '$row->name','$row->unit_id','$row->type_id','$row->stock'";
+
+                    $actionData = "'$row->id', '$row->name','$row->type_id','$row->unit_id','$row->stock'";
 
                     $btn = '
                             <button class="btn btn-primary btn-sm" onclick="EditAction(' . $actionData . ')" data-toggle="modal" data-target="#updateModal">

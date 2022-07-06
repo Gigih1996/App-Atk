@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <label for="divisi_id" class="font-weight-bold">Divisi<span class="text-danger">*</span></label>
-                    <select class="form-control js-example-basic-single" name="divisi_id" id="divisiIdCreate"
+                    <select class="form-control js-example-basic-single" name="departement_id" id="divisiIdCreate"
                         data-width="100%" data-placeholder="-- Choose Unit --">
                         <option value=""></option>
                         @foreach ($divisi as $item)

@@ -7,7 +7,7 @@
                 <div class="card-header bg-light">
                     <div class="row">
                         <div class="col-md-7 col-lg-6">
-                            <h3><i class="fas fa-building font-weight-bold"></i> Product - Index</h3>
+                            <h3><i class="fas fa-box"></i> Product - Index</h3>
                         </div>
                         <div class="col-md-5 col-lg-6 text-right">
                             <button class="btn btn-md btn-dark" data-toggle="modal" onclick="CreateAction()"
@@ -29,6 +29,8 @@
                                 <tr>
                                     <th class="text-center font-weight-bold text-dark" width="45">No</th>
                                     <th class="text-center font-weight-bold text-dark">Name</th>
+                                    <th class="text-center font-weight-bold text-dark">Type</th>
+                                    <th class="text-center font-weight-bold text-dark">Unit</th>
                                     <th class="text-center font-weight-bold text-dark">Stock</th>
                                     <th class="text-center font-weight-bold text-dark">Action</th>
                                 </tr>
@@ -71,12 +73,12 @@
     }
 
     .select2-container--default .select2-selection--single .select2-selection__rendered {
-        line-height: 35px;
-        font-size: 11px;
+        line-height: 26px;
+        font-size: 15px;
     }
 
     .select2-container--default .select2-selection--single .select2-selection__arrow {
-        top: 6.2px;
+        top: 0.2px;
         right: 5px;
     }
 
@@ -124,6 +126,8 @@
         $('.js-example-basic-hide-search').select2({
             minimumResultsForSearch: Infinity
         });
+
+        $('.js-example-basic-single').select2();
     });
     $(document).ready(function() {
 
@@ -154,6 +158,12 @@
                     data: 'name'
                 },
                 {
+                    data: 'types_name'
+                },
+                {
+                    data: 'unit_name'
+                },
+                {
                     data: 'stock'
                 },
                 {
@@ -163,7 +173,7 @@
                 },
             ],
             columnDefs: [{
-                targets: [-1],
+                targets: [-1, -2, -3, -4],
                 className: 'dt-body-center'
             }]
         });
@@ -228,13 +238,7 @@
         }
     }
 
-    function EditAction(a,b,c,d,e) {
-        $('#idUpdate').val(a);
-        $('#nameUpdate').val(b);
-        $('#typeIdUpdate').val(c).select2('');
-        $('#unitIdUpdate').val(d).select2('');
-        $('#stockUpdate').val(e);
-    }
+
 
     function StoreUpdate() {
         $.ajaxSetup({

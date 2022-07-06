@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white font-weight-bold">
-                <h5 class="modal-title"><i class="fas fa-dolly-flatbed"></i> Edit Transaction Incoming</h5>
+                <h5 class="modal-title"><i class="fas fa-box-open"></i> Edit Transaction Outgoing</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

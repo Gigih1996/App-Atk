@@ -16,10 +16,10 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->integerIncrements('id');
             $table->char('name', 100);
-            $table->unsignedInteger('divisi_id')->default(0);
+            $table->unsignedInteger('departement_id')->default(0);
             $table->timestamps();
 
-            $table->foreign('divisi_id')->references('id')->on('departements')->onDelete('cascade');
+            $table->foreign('departement_id')->references('id')->on('departements')->onDelete('cascade');
         });
     }
 

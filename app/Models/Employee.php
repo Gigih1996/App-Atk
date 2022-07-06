@@ -13,7 +13,7 @@ class Employee extends Model
 
     protected $fillable = [
         'name',
-        'divisi_id',
+        'departement_id',
     ];
 
     public function generateNomor()
@@ -29,8 +29,8 @@ class Employee extends Model
         return $date . $nomor;
     }
 
-    public function divisi()
+    public function departement()
     {
-        return $this->hasOne(Departement::class, 'id', 'divisi_id');
+        return $this->hasOne(Departement::class, 'id', 'departement_id');
     }
 }

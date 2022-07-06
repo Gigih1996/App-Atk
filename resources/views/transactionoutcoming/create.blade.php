@@ -2,13 +2,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success text-white font-weight-bold">
-                <h5 class="modal-title"><i class="fas fa-dolly-flatbed"></i> Create Transaction Incoming</h5>
+                <h5 class="modal-title"><i class="fas fa-box-open"></i> Create Transaction Outgoing</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['route' => 'transactionincoming.store', 'method' => 'POST', 'id' => 'createForm', 'autocomplete' => 'off']) !!}
+                {!! Form::open(['route' => 'transactionoutcoming.store', 'method' => 'POST', 'id' => 'createForm', 'autocomplete' => 'off']) !!}
                 <div class="form-group">
                     <label for="name" class="font-weight-bold">Supplier<span class="text-danger">*</span></label>
                     <select class="form-control js-example-basic-hide-search" name="supplier_id" id="supplierCreate"

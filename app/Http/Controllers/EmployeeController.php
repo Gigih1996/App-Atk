@@ -19,8 +19,8 @@ class EmployeeController extends Controller
     {
         if ($request->ajax()) {
 
-            $data = Employee::leftjoin('departements', 'employees.divisi_id', '=', 'departements.id')
-                ->select(['employees.*', 'departements.name AS divisi_name'])
+            $data = Employee::leftjoin('departements', 'employees.departement_id', '=', 'departements.id')
+                ->select(['employees.*', 'departements.name AS departement_name'])
                 ->orderBy('id', 'DESC')
                 ->get();
             return DataTables::of($data)
@@ -28,8 +28,8 @@ class EmployeeController extends Controller
                 ->addColumn('action', function ($row) {
 
                     $dateFormate = date('d-m-Y H:i:s', strtotime($row->created_at));
-                    $divisiName = $row->divisi->name;
-                    $employee = "'$row->id', '$row->name', '$row->divisi_id', '$dateFormate', '$divisiName'";
+                    $departementName = $row->departement->name;
+                    $employee = "'$row->id', '$row->name', '$row->departement_id', '$dateFormate', '$departementName'";
                     $btn = '
                             <button class="btn btn-primary btn-sm" onclick="EditEmployee(' . $employee . ')" data-toggle="modal" data-target="#EditEmployeeModal">
                                 <i class="fas fa-edit"></i> Edit
@@ -60,17 +60,10 @@ class EmployeeController extends Controller
 
     public function create(Request $request)
     {
-        // $employee = Employee::where(['name' => $request->name])->first();
-        // if ($employee) {
-        //     return Response()->json(['status' => false]);
-        // } else {
-        //     return Response()->json(['status' => true]);
-        // }
-
         $employee = new Employee;
         $employee->kode_pengguna = $request->id;
         $employee->name = $request->name;
-        $employee->divisi_id = $request->divisi_id;
+        $employee->departement_id = $request->departement_id;
         $employee->save();
 
         return Response()->json($employee);
@@ -87,7 +80,7 @@ class EmployeeController extends Controller
             $employee = new Employee();
             $employee->id = $employee->generateNomor();
             $employee->name = $request->name;
-            $employee->divisi_id = $request->divisi_id;
+            $employee->departement_id = $request->departement_id;
             $employee->save();
 
             return Response()->json(['status' => true]);
@@ -119,7 +112,7 @@ class EmployeeController extends Controller
         $id = $request->id_employee;
         $employee = Employee::find($id);
         $employee->name = $request->name;
-        $employee->divisi_id = $request->divisi_id;
+        $employee->departement_id = $request->departement_id;
         $employee->save();
 
         if ($employee) {

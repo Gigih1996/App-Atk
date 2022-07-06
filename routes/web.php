@@ -7,11 +7,13 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\KabinetController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportingAtkController;
 use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionIncomingController;
+use App\Http\Controllers\TransactionoutcomingController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Auth;
 
@@ -73,14 +75,8 @@ Route::delete('type/destroy', [TypeController::class, 'destroy'])->name('type_de
 
 //TRANSACTION INCOMING
 Route::resource('transactionincoming', TransactionIncomingController::class);
-Route::put('transactionincoming/update', [TransactionIncomingController::class, 'update'])->name('transaction_update_incoming');
+Route::put('transactionincoming/update', [TransactionIncomingController::class, 'update'])->name('transactionincoming_update');
 Route::delete('transactionincoming/destroy', [TypeController::class, 'destroy'])->name('transactionincoming_destroy');
-
-//Employee
-Route::resource('employee', EmployeeController::class);
-Route::post('employee/store', [EmployeeController::class, 'store'])->name('employee_store');
-Route::put('employee/update', [EmployeeController::class, 'update'])->name('employee_update');
-Route::delete('employee/destroy', [EmployeeController::class, 'destroy'])->name('employee_destroy');
 
 
 // //SETTING
@@ -91,3 +87,18 @@ Route::delete('employee/destroy', [EmployeeController::class, 'destroy'])->name(
 // Route::get('jenis_arsip/destroy/{id}', [JenisArsipController::class, 'destroy'])->name('jenis_arsip_destroy');
 // Route::get('media_arsip/destroy/{id}', [MediaArsipController::class, 'destroy'])->name('media_destroy');
 // Route::get('status/destroy/{id}', [StatusFileController::class, 'destroy'])->name('status_destroy');
+
+// EMPLOYEE
+Route::resource('employee', EmployeeController::class);
+Route::put('employee/update', [EmployeeController::class, 'update'])->name('employee_update');
+Route::delete('employee/destroy', [EmployeeController::class, 'destroy'])->name('employee_destroy');
+
+//TRANSACTION OUTCOMING
+Route::resource('transactionoutcoming', TransactionoutcomingController::class);
+Route::put('transactionoutcoming/update', [TransactionoutcomingController::class, 'update'])->name('transactionoutcoming_update');
+Route::delete('transactionoutcoming/destroy', [TransactionoutcomingController::class, 'destroy'])->name('transactionoutcoming_destroy');
+
+
+//REPORTING
+Route::get('PDF/index', [ReportingAtkController::class, 'index'])->name('reporting_index');
+Route::get('PDF/generatepdf', [ReportingAtkController::class, 'createPDF'])->name('pdf_index');

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+date_default_timezone_set("Asia/Jakarta");
+
 use App\Models\Employee;
 use App\Models\Product;
 use App\Models\Supplier;
@@ -11,7 +13,8 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Yajra\DataTables\Facades\DataTables;
 
-class TransactionIncomingController extends Controller
+
+class TransactionoutcomingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +30,7 @@ class TransactionIncomingController extends Controller
                                 'units.name as unit',                             
                                 'suppliers.name as supplier',                             
                                 )
-                    ->where('type','In')
+                    ->where('type','Out')
                     ->join('employees','employees.id','=','employee_id')
                     ->join('products','products.id','=','product_id')
                     ->join('units','units.id','=','transactions.unit_id')
@@ -72,7 +75,7 @@ class TransactionIncomingController extends Controller
         $optionProduct = Product::all();
         $optionSupplier = Supplier::all();
 
-        return view('transactionincoming.index',compact('optionUnit','optionEmployee','optionProduct','optionSupplier'));
+        return view('transactionoutcoming.index',compact('optionUnit','optionEmployee','optionProduct','optionSupplier'));
     }
 
     /**
@@ -102,11 +105,11 @@ class TransactionIncomingController extends Controller
         $transaction->total = $request->total;
         $transaction->date = $request->date;
         $transaction->departement_id = $karyawan->departement_id;
-        $transaction->type = 'In';
+        $transaction->type = 'Out';
         $transaction->supplier_id = $request->supplier_id;
         $transaction->save();
 
-        $transaction->updateStok(['product_id'=>$request->product_id,'type'=>'In','total'=>$request->total]);
+        $transaction->updateStok(['product_id'=>$request->product_id,'type'=>'Out','total'=>$request->total]);
 
         if ($transaction) {
             return Response()->json(['name' => true]);
@@ -158,7 +161,7 @@ class TransactionIncomingController extends Controller
         $transaction->departement_id = $karyawan->departement_id;
         $transaction->supplier_id = $request->supplier_id;
         if($transaction->save()){
-            $transaction->updateStok(['product_id'=>$request->product_id,'type'=>'Out','total'=>$selisihSstok]);
+            $transaction->updateStok(['product_id'=>$request->product_id,'type'=>'In','total'=>$selisihSstok]);
         };
 
         if ($transaction) {
@@ -176,7 +179,7 @@ class TransactionIncomingController extends Controller
     {
         $id = $request->id;
         $transaction = Transaction::find($id);
-        $transaction->updateStok(['product_id'=>$transaction->product_id,'type'=>'Out','total'=>$transaction->total]);
+        $transaction->updateStok(['product_id'=>$transaction->product_id,'type'=>'In','total'=>$transaction->total]);
 
 
         $transaction->delete();
