@@ -126,6 +126,8 @@
         $('.js-example-basic-hide-search').select2({
             minimumResultsForSearch: Infinity
         });
+
+        $('.js-example-basic-single').select2();
     });
     $(document).ready(function() {
 
@@ -156,10 +158,10 @@
                     data: 'name'
                 },
                 {
-                    data: 'type_id'
+                    data: 'types_name'
                 },
                 {
-                    data: 'unit_id'
+                    data: 'unit_name'
                 },
                 {
                     data: 'stock'
@@ -171,7 +173,7 @@
                 },
             ],
             columnDefs: [{
-                targets: [-1, -2],
+                targets: [-1, -2, -3, -4],
                 className: 'dt-body-center'
             }]
         });
@@ -236,13 +238,7 @@
         }
     }
 
-    function EditAction(a, b, c, d, e) {
-        $('#idUpdate').val(a);
-        $('#nameUpdate').val(b);
-        $('#typeIdUpdate').val(c).select2();
-        $('#unitIdUpdate').val(d).select2();
-        $('#stockUpdate').val(e);
-    }
+
 
     function StoreUpdate() {
         $.ajaxSetup({

@@ -7,8 +7,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\KabinetController;
 use App\Http\Controllers\DepartementController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportingAtkController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TransactionIncomingController;
 use App\Http\Controllers\TransactionoutcomingController;
@@ -95,3 +97,8 @@ Route::delete('employee/destroy', [EmployeeController::class, 'destroy'])->name(
 Route::resource('transactionoutcoming', TransactionoutcomingController::class);
 Route::put('transactionoutcoming/update', [TransactionoutcomingController::class, 'update'])->name('transactionoutcoming_update');
 Route::delete('transactionoutcoming/destroy', [TransactionoutcomingController::class, 'destroy'])->name('transactionoutcoming_destroy');
+
+
+//REPORTING
+Route::get('PDF/index', [ReportingAtkController::class, 'index'])->name('reporting_index');
+Route::get('PDF/generatepdf', [ReportingAtkController::class, 'createPDF'])->name('pdf_index');

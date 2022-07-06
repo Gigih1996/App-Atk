@@ -156,7 +156,7 @@
             <div class="fixed-bottom">
                 <nav class="main-header navbar navbar-expand navbar-white navbar-dark bg-dark">
                     <div class="col-6">
-                        <small>&copy; PT. ARTHA ASIA FINANCE</small>
+                        <small>&copy;PT. INTI NOMIKA INDONESIA</small>
                     </div>
                     <div class="col-6 text-right">
                         <span>

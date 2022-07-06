@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white font-weight-bold">
-                <h5 class="modal-title"><i class="fas fa-box"></i> Edit Divisi</h5>
+                <h5 class="modal-title"><i class="fas fa-box"></i> Edit Product</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -15,7 +15,7 @@
                         <input type="hidden" id="idUpdate" name="id">
                     </div>
                     <div class="form-group">
-                        <label for="name" class="font-weight-bold">Type<span class="text-danger">*</span></label>
+                        <label for="type" class="font-weight-bold">Type<span class="text-danger">*</span></label>
                         <select class="form-control js-example-basic-hide-search" name="type_id" id="typeIdUpdate"
                             data-width="100%" data-placeholder="-- Choose Type --">
                             <option value=""></option>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="form-group">
                         <label for="name" class="font-weight-bold">Unit<span class="text-danger">*</span></label>
-                        <select class="form-control js-example-basic-hide-search" name="unit_id" id="unitIdUpdate"
+                        <select class="form-control js-example-basic-single" name="unit_id" id="unitIdUpdate"
                             data-width="100%" data-placeholder="-- Choose Unit --">
                             <option value=""></option>
                             @foreach ($optionUnit as $item)
@@ -64,3 +64,13 @@
         </div>
     </div>
 </div>
+
+<script>
+    function EditAction(a, b, c, d, e) {
+        $('#idUpdate').val(a);
+        $('#nameUpdate').val(b);
+        $('#typeIdUpdate').val(c).select2();
+        $('#unitIdUpdate').val(d).select2();
+        $('#stockUpdate').val(e);
+    }
+</script>

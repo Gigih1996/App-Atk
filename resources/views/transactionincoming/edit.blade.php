@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-primary text-white font-weight-bold">
-                <h5 class="modal-title"><i class="fas fa-building"></i> Edit Transaction Incoming</h5>
+                <h5 class="modal-title"><i class="fas fa-dolly-flatbed"></i> Edit Transaction Incoming</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -10,7 +10,8 @@
             <div class="modal-body">
                 <form id="DepartementFormUpdate" autocomplete="off">
                     <div class="form-group">
-                    <label for="name" class="font-weight-bold">Supplier<span class="text-danger">*</span></label>
+                        <label for="name" class="font-weight-bold">Supplier<span
+                                class="text-danger">*</span></label>
                         <select class="form-control js-example-basic-hide-search" name="supplier_id"
                             id="supplierIdUpdate" data-width="100%" data-placeholder="-- Choose Supplier --">
                             <option value=""></option>
@@ -20,11 +21,13 @@
                                     {{ $item->name }} </option>
                             @endforeach
                         </select>
-                        <div class="text-danger" style="display: none;" id="error_supplier_id">The Employee field is required</div>
+                        <div class="text-danger" style="display: none;" id="error_supplier_id">The Employee field is
+                            required</div>
                     </div>
                     <input type="hidden" id="idUpdate" name="id">
                     <div class="form-group">
-                        <label for="name" class="font-weight-bold">Employee Name<span class="text-danger">*</span></label>
+                        <label for="name" class="font-weight-bold">Employee Name<span
+                                class="text-danger">*</span></label>
                         <select class="form-control js-example-basic-hide-search" name="employee_id"
                             id="employeeIdUpdate" data-width="100%" data-placeholder="-- Choose Employee --">
                             <option value=""></option>
@@ -34,12 +37,14 @@
                                     {{ $item->name }} </option>
                             @endforeach
                         </select>
-                        <div class="text-danger" style="display: none;" id="error_employee_id">The Employee field is required</div>
+                        <div class="text-danger" style="display: none;" id="error_employee_id">The Employee field is
+                            required</div>
                     </div>
                     <div class="form-group">
-                        <label for="name" class="font-weight-bold">Product Name<span class="text-danger">*</span></label>
-                        <select class="form-control js-example-basic-hide-search" name="product_id"
-                            id="productIdUpdate" data-width="100%" data-placeholder="-- Choose Product --">
+                        <label for="name" class="font-weight-bold">Product Name<span
+                                class="text-danger">*</span></label>
+                        <select class="form-control js-example-basic-hide-search" name="product_id" id="productIdUpdate"
+                            data-width="100%" data-placeholder="-- Choose Product --">
                             <option value=""></option>
                             @foreach ($optionProduct as $item)
                                 <option value="{{ $item->id }}"
@@ -47,12 +52,13 @@
                                     {{ $item->name }} </option>
                             @endforeach
                         </select>
-                        <div class="text-danger" style="display: none;" id="error_product_id">The Product field is required</div>
-                    </div>                
+                        <div class="text-danger" style="display: none;" id="error_product_id">The Product field is
+                            required</div>
+                    </div>
                     <div class="form-group">
                         <label for="name" class="font-weight-bold">Unit<span class="text-danger">*</span></label>
-                        <select class="form-control js-example-basic-hide-search" name="unit_id"
-                            id="unitIdUpdate" data-width="100%" data-placeholder="-- Choose Unit --">
+                        <select class="form-control js-example-basic-hide-search" name="unit_id" id="unitIdUpdate"
+                            data-width="100%" data-placeholder="-- Choose Unit --">
                             <option value=""></option>
                             @foreach ($optionUnit as $item)
                                 <option value="{{ $item->id }}"
@@ -60,17 +66,19 @@
                                     {{ $item->name }} </option>
                             @endforeach
                         </select>
-                        <div class="text-danger" style="display: none;" id="error_unit_id">The Unit field is required</div>
+                        <div class="text-danger" style="display: none;" id="error_unit_id">The Unit field is required
+                        </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="name" class="font-weight-bold">Total<span class="text-danger">*</span></label>
-                        {!! Form::number('total', null, ['placeholder' => 'Total', 'class' => 'form-control', 'required','id'=>'totalUpdate']) !!}
-                        <div class="text-danger" style="display: none;" id="error_total">The Total field is required</div>
+                        {!! Form::number('total', null, ['placeholder' => 'Total', 'class' => 'form-control', 'required', 'id' => 'totalUpdate']) !!}
+                        <div class="text-danger" style="display: none;" id="error_total">The Total field is required
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="name" class="font-weight-bold">Date<span class="text-danger">*</span></label>
-                        {!! Form::date('date', null, ['placeholder' => 'Stock', 'class' => 'form-control', 'required','id'=>'dateUpdate']) !!}
+                        {!! Form::date('date', null, ['placeholder' => 'Stock', 'class' => 'form-control', 'required', 'id' => 'dateUpdate']) !!}
                         <div class="text-danger" style="display: none;" id="error_date">The Date field is required</div>
                     </div>
                 </form>
