@@ -24,7 +24,7 @@
             <div class="icon">
                 <i class="fas fa-file-archive"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="/product" class="small-box-footer">
                 More info <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -38,7 +38,7 @@
             <div class="icon">
                 <i class="fas fa-file-archive"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="/transactionincoming" class="small-box-footer">
                 More info <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -52,7 +52,7 @@
             <div class="icon">
                 <i class="fas fa-file-archive"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="/product" class="small-box-footer">
                 More info <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -106,7 +106,7 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header border-0">
-                <h3 class="card-title">Top Requestor</h3>
+                <h3 class="card-title">Top 5 Requestor</h3>
                 <div class="card-tools">
                     <a href="#" class="btn btn-tool btn-sm">
                         <i class="fas fa-sync"></i>
@@ -116,18 +116,18 @@
             <div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">
                     <thead>
-                        <tr>
-                            <th>Divisi</th>
-                            <th>Qty</th>
+                        <tr class="text-center">
+                            <th>Division</th>
+                            <th>Quantity</th>
                             <th>Persentase</th>
                         </tr>
                     </thead>                    
                     <tbody>
                         @foreach ($listRequestor as $row)
-                        <tr>
-                            <td>Kepegawaian</td>
-                            <td>10</td>
-                            <td>20%</td>
+                        <tr class="text-center">
+                            <td>{{$row->name}}</td>
+                            <td >{{$row->qty}}</td>
+                            <td>{{number_format($row->persen)}}%</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -143,7 +143,7 @@
                         <canvas id="myChart" width="100%" height="50px"></canvas>
                     </div>
                     <div class="col-md-6 text-center ">
-                        <h4 class="font-weight-bold ">TOTAL TRANSACTION <br> 3</h4>
+                        <h4 class="font-weight-bold ">TOTAL TRANSACTION <br> {{$label['outgoing']+$label['incoming']}}</h4>
 
                     </div>
                 </div>
@@ -152,7 +152,7 @@
                 <div class="row">
                     <div class="col-md-6 col-6">
                         <div class="description-block border-right">
-                            <h5 class="description-header">100</h5>
+                            <h5 class="description-header">{{$label['employee']}}</h5>
                             <span class="description-text">Employee</span>
                         </div>
 
@@ -160,8 +160,8 @@
 
                     <div class="col-md-6 col-6">
                         <div class="description-block border-right">
-                            <h5 class="description-header">100</h5>
-                            <span class="description-text">Divisi</span>
+                            <h5 class="description-header">{{$label['division']}}</h5>
+                            <span class="description-text">Division</span>
                         </div>
 
                     </div>
@@ -191,17 +191,15 @@
                 type: 'pie'
                 , data: {
                     labels: [
-                        'Red'
-                        , 'Blue'
-                        , 'Yellow'
+                        'Outoging',
+                        'Incoming'
                     ]
                     , datasets: [{
                         label: 'My First Dataset'
-                        , data: [300, 50, 100]
+                        , data: [{{$label['outgoing']}}, {{$label['incoming']}}]
                         , backgroundColor: [
-                            'rgb(255, 99, 132)'
-                            , 'rgb(54, 162, 235)'
-                            , 'rgb(255, 205, 86)'
+                            'rgb(255, 99, 132)',
+                            'rgb(54, 162, 235)'
                         ]
                         , hoverOffset: 4
                     }]

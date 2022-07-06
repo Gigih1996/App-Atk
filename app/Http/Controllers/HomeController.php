@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\DigitalArsip;
+use App\Models\Product;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -32,13 +34,17 @@ class HomeController extends Controller
         // $inaktif = DigitalArsip::where('status_id', 2)->get()->count();
         // $permanen = DigitalArsip::where('status_id', 3)->get()->count();
 
+
+        $transaction = new Transaction();
         $label = [
-            'product' => 1,
-            'incoming' => 2,
-            'outgoing' => 3,
+            'product' => Product::count(),
+            'incoming' => Transaction::where('type','In')->count(),
+            'outgoing' => Transaction::where('type','Out')->count(),
+            'employee' => $transaction->getCountTransactionEmployee(),
+            'division' => $transaction->getCountTransactionDivisi(),
         ];
 
-        $listRequestor = [];
+        $listRequestor = $transaction->topRequestor() ?: [];
         return view('home',compact('label','listRequestor'));
     }
 }
