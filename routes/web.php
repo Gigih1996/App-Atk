@@ -100,5 +100,6 @@ Route::delete('transactionoutcoming/destroy', [TransactionoutcomingController::c
 
 
 //REPORTING
+Route::post('PDF/indexPost', [ReportingAtkController::class, 'indexPost'])->name('reporting_index_post');
 Route::get('PDF/index', [ReportingAtkController::class, 'index'])->name('reporting_index');
 Route::get('PDF/generatepdf', [ReportingAtkController::class, 'createPDF'])->name('pdf_index');

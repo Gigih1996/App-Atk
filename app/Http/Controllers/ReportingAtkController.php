@@ -42,24 +42,30 @@ class ReportingAtkController extends Controller
         return view('PDF.index');
     }
 
-    public function createPDF()
+    public function createPDF(Request $request)
     {
 
-        // $projects = User::all();
+        $startDate = $request->start_date;//isset($_GET['startDate']) ? $_GET['startDate'] : '2022-07-08';
+        $endDate = $request->end_date;//isset($_GET['endDate']) ? $_GET['endDate'] : '2022-07-09';
+        $sql_transaction = DB::select(
+            'SELECT p.`name` as products, d.`name` as departement, SUM(total) AS total_sum, p.id AS product_id, 
+            (SUM(total)/(SELECT SUM(total) FROM transactions WHERE type="Out" AND date BETWEEN "' .$startDate .'" AND "' .$endDate .'" )*100) AS persen
+            FROM `transactions` t
+            JOIN `products` p ON p.`id` = t.`product_id`
+            JOIN `departements` d ON d.`id` = t.`departement_id`
+            WHERE `type`="Out"
+            AND date BETWEEN "' .$startDate .'" AND "' .$endDate .'" 
+            GROUP BY d.`id`, p.`id`'
+        );
 
-        // view()->share('projects', $projects);
+        $data = [
+            'start_date' => $startDate,
+            'end_date' => $endDate,
+            'sql_transaction' => $sql_transaction,
+        ];
+        
 
-        // $pdf = PDF::loadView('PDF.pdf', $projects);
-        // return $pdf->download('export.pdf');
-        // if ($request->has('download')) {
-        //     PDF::setOptions(['dpi' => '150', 'defaultFont' => 'sans-serif']);
-        //     $pdf = PDF::loadView('PDF.pdf');
-        //     return $pdf->download('PDF.pdf');
-        // }
-
-        $users = User::all();
-
-        $data = ['users' => $users];
+        return view('PDF.pdf',$data);
 
         $pdf = PDF::loadView('PDF.pdf', $data);
         return $pdf->download('invoice.pdf');

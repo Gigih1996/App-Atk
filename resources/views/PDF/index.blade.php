@@ -9,37 +9,47 @@
                         <div class="col-md-7 col-lg-6">
                             <h3><i class="far fa-file-alt"></i> Reporting - Index</h3>
                         </div>
-                        <div class="col-md-5 col-lg-6 text-right">
+                        {{-- <div class="col-md-5 col-lg-6 text-right">
                             <a href="{{ route('pdf_index') }}" class="btn btn-md btn-danger">
                                 <i class="far fa-file-pdf"></i> Export PDF
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
 
                 </div>
                 <div class="card-body">
-                    <form action="">
+                    <form action="generatepdf">
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-lg-6 col-md-12">
+                                <div class="col-lg-4 col-md-12">
                                     <div class="form-group">
                                         <label for="start_date">Start Date<span class="text-danger">*</span></label>
                                         {!! Form::date('start_date', null, ['class' => 'form-control', 'placeholder' => 'Start Date', 'id'=>'start_date', 'required']) !!}
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-12">
+                                <div class="col-lg-4 col-md-12">
                                     <div class="form-group">
                                         <label for="start_date">End Date<span class="text-danger">*</span></label>
-                                        {!! Form::date('end_date', null, ['class' => 'form-control', 'placeholder' => 'End Date','id'=>'end_date', 'required']) !!}
+                                        {!! Form::date('end_date', date('Y-m-d'), ['class' => 'form-control', 'placeholder' => 'End Date','id'=>'end_date', 'required']) !!}
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12">
+                                    <div class="form-group">
+                                        <label for="start_date">Divisi<span class="text-danger">*</span></label>
+                                        <select class="form-control" name="department_id">
+                                            <option value="All">All</option>
+                                            <option value="Divisi 1">Divisi 1</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <button class="btn btn-success btn-lg" type="button" style="width: 100%;" id="ActionDate"
-                                onclick="CreateDate()">
-                                <i class="fas fa-search"></i> Search
+                            <button class="btn btn-success btn-lg" type="submit" style="width: 100%;" id="ActionDate"
+                                {{-- onclick="CreateDate()" --}}
+                                >
+                                <i class="fas fa-download"></i> Download PDF
                             </button>
                         </div>
                         <button type="button" class="btn btn-lg btn-success" style="width: 100%; display:none;"

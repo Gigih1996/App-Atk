@@ -13,18 +13,31 @@
 </head>
 
 <body>
-    <table class="table table-bordered">
+    <h2 class="text-center">LAPORAN PEMAKAIAN BARANG</h2>
+    <h3 class="text-center">PERIODE {{$start_date}} - {{$end_date}}</h3>
+    <br>
+    <br>
+    <table class="table table-bordered ">
         <tr>
-            <th>Name</th>
-            <th>Email</th>
+            <th class="text-center">No.</th>
+            <th>Nama Barang</th>
+            <th>Nama Divisi </th>
+            <th>Total Pemakaian</th>
+            <th class="text-center">Persentase Pemakaian</th>
         </tr>
-
-        {{-- @foreach ($users as $item)
+        {{-- @if($users) --}}
+            'sql_transaction' => $sql_transaction,
+            @foreach ($sql_transaction as $key => $item)
             <tr>
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->email }}</td>
+                <td>{{++$key}}</td>
+                <td>{{ $item->products }}</td>
+                <td>{{ $item->departement }}</td>
+                <td>{{ $item->total_sum }}</td>                
+                <td>{{ number_format($item->persen) }}%</td>
             </tr>
-        @endforeach --}}
+        @endforeach
+        {{-- @endif --}}
+        
     </table>
 
     <!-- Optional JavaScript; choose one of the two! -->
