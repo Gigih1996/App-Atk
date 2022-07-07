@@ -24,28 +24,32 @@ class TransactionoutcomingController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Transaction::select('transactions.id as id','employee_id','transactions.unit_id as unit_id','total','date','supplier_id','product_id',
-                                'employees.name as employee',                                
-                                'products.name as product',                                
-                                'units.name as unit',                             
-                                'suppliers.name as supplier',                             
-                                )
-                    ->where('type','Out')
-                    ->join('employees','employees.id','=','employee_id')
-                    ->join('products','products.id','=','product_id')
-                    ->join('units','units.id','=','transactions.unit_id')
-                    ->join('suppliers','suppliers.id','=','supplier_id')
-                    ->get();
+            $data = Transaction::select(
+                'transactions.id as id',
+                'employee_id',
+                'transactions.unit_id as unit_id',
+                'total',
+                'date',
+                'product_id',
+                'employees.name as employee',
+                'products.name as product',
+                'units.name as unit'
+            )
+                ->where('type', 'Out')
+                ->join('employees', 'employees.id', '=', 'employee_id')
+                ->join('products', 'products.id', '=', 'product_id')
+                ->join('units', 'units.id', '=', 'transactions.unit_id')
+                ->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('newDate', function ($row) {
-                    $date = date('d F Y',strtotime($row->date));
+                    $date = date('d F Y', strtotime($row->date));
                     return $date;
 
                     // return $row->date;
                 })
                 ->addColumn('action', function ($row) {
-                    $actionData = "'$row->id','$row->supplier_id','$row->employee_id','$row->product_id','$row->unit_id','$row->total','$row->date'";
+                    $actionData = "'$row->id','$row->employee_id','$row->product_id','$row->unit_id','$row->total','$row->date'";
 
                     $btn = '
                             <button class="btn btn-primary btn-sm" onclick="EditAction(' . $actionData . ')" data-toggle="modal" data-target="#updateModal">
@@ -61,7 +65,7 @@ class TransactionoutcomingController extends Controller
                         ';
                     return $btn;
                 })
-                ->rawColumns(['action','newDate'])
+                ->rawColumns(['action', 'newDate'])
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -69,13 +73,12 @@ class TransactionoutcomingController extends Controller
         if (session(key: 'success_message')) {
             Alert::success('Success!', session(key: 'success_message'));
         }
-        
+
         $optionUnit = Unit::all();
         $optionEmployee = Employee::all();
         $optionProduct = Product::all();
-        $optionSupplier = Supplier::all();
 
-        return view('transactionoutcoming.index',compact('optionUnit','optionEmployee','optionProduct','optionSupplier'));
+        return view('transactionoutcoming.index', compact('optionUnit', 'optionEmployee', 'optionProduct'));
     }
 
     /**
@@ -106,10 +109,9 @@ class TransactionoutcomingController extends Controller
         $transaction->date = $request->date;
         $transaction->departement_id = $karyawan->departement_id;
         $transaction->type = 'Out';
-        $transaction->supplier_id = $request->supplier_id;
         $transaction->save();
 
-        $transaction->updateStok(['product_id'=>$request->product_id,'type'=>'Out','total'=>$request->total]);
+        $transaction->updateStok(['product_id' => $request->product_id, 'type' => 'Out', 'total' => $request->total]);
 
         if ($transaction) {
             return Response()->json(['name' => true]);
@@ -146,12 +148,12 @@ class TransactionoutcomingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
-    {   
+    {
         $karyawan = Employee::find($request->employee_id);
 
         $id = $request->id;
         $transaction = Transaction::find($id);
-        $selisihSstok = $transaction->total-$request->total;
+        $selisihSstok = $transaction->total - $request->total;
 
         $transaction->employee_id = $request->employee_id;
         $transaction->product_id = $request->product_id;
@@ -159,9 +161,8 @@ class TransactionoutcomingController extends Controller
         $transaction->total = $request->total;
         $transaction->date = $request->date;
         $transaction->departement_id = $karyawan->departement_id;
-        $transaction->supplier_id = $request->supplier_id;
-        if($transaction->save()){
-            $transaction->updateStok(['product_id'=>$request->product_id,'type'=>'In','total'=>$selisihSstok]);
+        if ($transaction->save()) {
+            $transaction->updateStok(['product_id' => $request->product_id, 'type' => 'In', 'total' => $selisihSstok]);
         };
 
         if ($transaction) {
@@ -179,7 +180,7 @@ class TransactionoutcomingController extends Controller
     {
         $id = $request->id;
         $transaction = Transaction::find($id);
-        $transaction->updateStok(['product_id'=>$transaction->product_id,'type'=>'In','total'=>$transaction->total]);
+        $transaction->updateStok(['product_id' => $transaction->product_id, 'type' => 'In', 'total' => $transaction->total]);
 
 
         $transaction->delete();

@@ -39,26 +39,6 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
-            // $event->menu->add([
-            //     //KABINET
-            //     'text'    => 'KABINETS',
-            //     'icon'    => 'fas fa-folder-plus',
-            //     'active' => ['kabinet*'],
-            //     'label' => Kabinet::count(),
-            //     'label_color' => 'success',
-            //     'submenu' => [
-            //         [
-            //             'text' => 'Manage',
-            //             'icon_color' => 'red',
-            //             'url'  => 'kabinet',
-            //         ],
-            //         [
-            //             'text' => 'Create',
-            //             'icon_color' => 'yellow',
-            //             'url'  => 'kabinet/create',
-            //         ],
-            //     ],
-            // ]);
 
             $event->menu->add([
                 //MASTER
@@ -84,12 +64,6 @@ class AppServiceProvider extends ServiceProvider
                         'label' => Type::count(),
                         'icon_color' => 'yellow',
                         'url'  => 'type',
-                    ],
-                    [
-                        'text' => 'Supplier',
-                        'label' => Supplier::count(),
-                        'icon_color' => 'yellow',
-                        'url'  => 'supplier',
                     ],
                     [
                         'text' => 'Product',

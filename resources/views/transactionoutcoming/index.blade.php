@@ -32,7 +32,6 @@
                                     <th class="text-center font-weight-bold text-dark">Products</th>
                                     <th class="text-center font-weight-bold text-dark">Total</th>
                                     <th class="text-center font-weight-bold text-dark">Unit</th>
-                                    <th class="text-center font-weight-bold text-dark">Supplier</th>
                                     <th class="text-center font-weight-bold text-dark">Date</th>
                                     <th class="text-center font-weight-bold text-dark">Action</th>
                                 </tr>
@@ -167,9 +166,6 @@
                     data: 'unit'
                 },
                 {
-                    data: 'supplier'
-                },
-                {
                     data: 'newDate'
                 },
                 {
@@ -244,9 +240,8 @@
         }
     }
 
-    function EditAction(a, b, c, d, e, f, g) {
+    function EditAction(a, c, d, e, f, g) {
         $('#idUpdate').val(a);
-        $('#supplierIdUpdate').val(b).select2('');
         $('#employeeIdUpdate').val(c).select2('');
         $('#productIdUpdate').val(d).select2('');
         $('#unitIdUpdate').val(e).select2('');
@@ -261,7 +256,6 @@
             }
         });
         var id = $('#idUpdate').val();
-        var supplier_id = $('#supplierIdUpdate').val();
         var employee_id = $('#employeeIdUpdate').val();
         var product_id = $('#productIdUpdate').val();
         var unit_id = $('#unitIdUpdate').val();
@@ -273,7 +267,6 @@
             url: "{{ route('transactionoutcoming_update') }}",
             data: {
                 id: id,
-                supplier_id: supplier_id,
                 employee_id: employee_id,
                 product_id: product_id,
                 unit_id: unit_id,

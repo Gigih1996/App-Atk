@@ -32,7 +32,6 @@
                                     <th class="text-center font-weight-bold text-dark">Products</th>
                                     <th class="text-center font-weight-bold text-dark">Total</th>
                                     <th class="text-center font-weight-bold text-dark">Unit</th>
-                                    <th class="text-center font-weight-bold text-dark">Supplier</th>
                                     <th class="text-center font-weight-bold text-dark">Date</th>
                                     <th class="text-center font-weight-bold text-dark">Action</th>
                                 </tr>
@@ -165,9 +164,6 @@
                 },
                 {
                     data: 'unit'
-                },
-                {
-                    data: 'supplier'
                 },
                 {
                     data: 'newDate'

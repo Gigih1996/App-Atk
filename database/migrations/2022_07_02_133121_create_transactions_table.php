@@ -22,14 +22,12 @@ class CreateTransactionsTable extends Migration
             $table->unsignedInteger('departement_id')->default(0);
             $table->date('date');
             $table->enum('type', ['In', 'Out']);
-            $table->unsignedInteger('supplier_id')->default(0);;
             $table->timestamps();
 
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('unit_id')->references('id')->on('units')->onDelete('cascade');
             $table->foreign('departement_id')->references('id')->on('departements')->onDelete('cascade');
-            $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
         });
     }
 

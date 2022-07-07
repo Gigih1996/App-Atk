@@ -14,7 +14,7 @@
 
 <body>
     <h2 class="text-center">LAPORAN PEMAKAIAN BARANG</h2>
-    <h3 class="text-center">PERIODE {{$start_date}} - {{$end_date}}</h3>
+    <h3 class="text-center">PERIODE {{ $start_date }} - {{ $end_date }}</h3>
     <br>
     <br>
     <table class="table table-bordered ">
@@ -25,19 +25,17 @@
             <th>Total Pemakaian</th>
             <th class="text-center">Persentase Pemakaian</th>
         </tr>
-        {{-- @if($users) --}}
-            'sql_transaction' => $sql_transaction,
-            @foreach ($sql_transaction as $key => $item)
+
+        @foreach ($sql_transaction as $key => $item)
             <tr>
-                <td>{{++$key}}</td>
+                <td>{{ ++$key }}</td>
                 <td>{{ $item->products }}</td>
                 <td>{{ $item->departement }}</td>
-                <td>{{ $item->total_sum }}</td>                
+                <td>{{ $item->total_sum }}</td>
                 <td>{{ number_format($item->persen) }}%</td>
             </tr>
         @endforeach
-        {{-- @endif --}}
-        
+
     </table>
 
     <!-- Optional JavaScript; choose one of the two! -->

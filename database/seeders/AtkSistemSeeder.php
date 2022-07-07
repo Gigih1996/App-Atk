@@ -17,7 +17,6 @@ class AtkSistemSeeder extends Seeder
             PermissionSeeder::class,
             UserAdminSeeder::class,
             DepartementSeeder::class,
-            ProductSeeder::class,
             TypeSeeder::class,
             UnitSeeder::class
         ]);

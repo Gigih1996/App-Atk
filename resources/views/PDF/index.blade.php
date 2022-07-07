@@ -21,19 +21,19 @@
                     <form action="generatepdf">
                         <div class="form-group">
                             <div class="row">
-                                <div class="col-lg-4 col-md-12">
+                                <div class="col-lg-6 col-md-12">
                                     <div class="form-group">
                                         <label for="start_date">Start Date<span class="text-danger">*</span></label>
-                                        {!! Form::date('start_date', null, ['class' => 'form-control', 'placeholder' => 'Start Date', 'id'=>'start_date', 'required']) !!}
+                                        {!! Form::date('start_date', null, ['class' => 'form-control', 'placeholder' => 'Start Date', 'id' => 'start_date', 'required']) !!}
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-12">
+                                <div class="col-lg-6 col-md-12">
                                     <div class="form-group">
                                         <label for="start_date">End Date<span class="text-danger">*</span></label>
-                                        {!! Form::date('end_date', date('Y-m-d'), ['class' => 'form-control', 'placeholder' => 'End Date','id'=>'end_date', 'required']) !!}
+                                        {!! Form::date('end_date', date('Y-m-d'), ['class' => 'form-control', 'placeholder' => 'End Date', 'id' => 'end_date', 'required']) !!}
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-12">
+                                {{-- <div class="col-lg-4 col-md-12">
                                     <div class="form-group">
                                         <label for="start_date">Divisi<span class="text-danger">*</span></label>
                                         <select class="form-control" name="department_id">
@@ -41,14 +41,13 @@
                                             <option value="Divisi 1">Divisi 1</option>
                                         </select>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 
                         <div class="form-group">
                             <button class="btn btn-success btn-lg" type="submit" style="width: 100%;" id="ActionDate"
-                                {{-- onclick="CreateDate()" --}}
-                                >
+                                {{-- onclick="CreateDate()" --}}>
                                 <i class="fas fa-download"></i> Download PDF
                             </button>
                         </div>
@@ -58,7 +57,6 @@
                             </div> Process
                         </button>
                     </form>
-                    <h2>Start Date</h2>
                     <div class="table-responsive">
                         <table class="table table-bordered" id="TableReporting" style="display:none;">
                             <thead>
@@ -156,7 +154,7 @@
         $('.js-example-basic-single').select2();
     });
 
-    function ListTable(start_date,end_date) {
+    function ListTable(start_date, end_date) {
         $('#TableReporting').show();
 
 
@@ -176,7 +174,7 @@
             },
 
             serverSide: true,
-            ajax: "{{ route('reporting_index') }}"+'?startDate='+start_date,
+            ajax: "{{ route('reporting_index') }}" + '?startDate=' + start_date,
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
@@ -226,7 +224,7 @@
 
             },
             success: function() {
-                ListTable(startDate,endDate);
+                ListTable(startDate, endDate);
                 $('#TableReporting').DataTable().ajax.reload();
                 // swal("Success!", "The Divisi create has been successfully!", "success");
                 $('#ActionDate').show();

@@ -9,21 +9,6 @@
             </div>
             <div class="modal-body">
                 <form id="DepartementFormUpdate" autocomplete="off">
-                    <div class="form-group">
-                        <label for="name" class="font-weight-bold">Supplier<span
-                                class="text-danger">*</span></label>
-                        <select class="form-control js-example-basic-hide-search" name="supplier_id"
-                            id="supplierIdUpdate" data-width="100%" data-placeholder="-- Choose Supplier --">
-                            <option value=""></option>
-                            @foreach ($optionSupplier as $item)
-                                <option value="{{ $item->id }}"
-                                    @if (old('supplier_id') == $item->id) selected="selected" @endif>
-                                    {{ $item->name }} </option>
-                            @endforeach
-                        </select>
-                        <div class="text-danger" style="display: none;" id="error_supplier_id">The Employee field is
-                            required</div>
-                    </div>
                     <input type="hidden" id="idUpdate" name="id">
                     <div class="form-group">
                         <label for="name" class="font-weight-bold">Employee Name<span
