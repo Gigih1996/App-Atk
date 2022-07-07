@@ -20,19 +20,20 @@ class ReportingAtkController extends Controller
 
         if ($request->ajax()) {
             $data = DB::select(
-                'SELECT p.`name` as products, d.`name` as departement, SUM(total) AS total_sum,0 AS persen, p.id AS product_id
+                'SELECT p.`name` as products, d.`name` as departement, SUM(total) AS total_sum, p.id AS product_id
                 FROM `transactions` t
-                JOIN atk.`products` p ON p.`id` = t.`product_id`
-                JOIN atk.`departements` d ON d.`id` = t.`departement_id`
+                JOIN `products` p ON p.`id` = t.`product_id`
+                JOIN `departements` d ON d.`id` = t.`departement_id`
+                WHERE `type`="Out"
                 GROUP BY d.`id`, p.`id`'
             );
+
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('persen', function ($row) {
-                    // $sql = Transaction::where(['type' => 'out', 'product_id', $row->product_id])->get();
-                    $sql = DB::table('transactions')->select('*')->where(['type' => 'out', 'product_id', $row->product_id])->get();
-                    $sumTotal = (int)$row->total_sum * $sql;
-                    return $sumTotal;
+                    $sql = Transaction::where(['type' => 'Out', 'product_id'=>$row->product_id])->sum('total');
+                    $sumTotal = (int)$row->total_sum ;
+                    return  number_format($row->total_sum/$sql*100) .'%';
                 })
                 ->rawColumns(['persen'])
                 ->addIndexColumn()

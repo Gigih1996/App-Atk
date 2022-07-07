@@ -24,13 +24,13 @@
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group">
                                         <label for="start_date">Start Date<span class="text-danger">*</span></label>
-                                        {!! Form::date('start_date', null, ['class' => 'form-control', 'placeholder' => 'Start Date', 'required']) !!}
+                                        {!! Form::date('start_date', null, ['class' => 'form-control', 'placeholder' => 'Start Date', 'id'=>'start_date', 'required']) !!}
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12">
                                     <div class="form-group">
                                         <label for="start_date">End Date<span class="text-danger">*</span></label>
-                                        {!! Form::date('end_date', null, ['class' => 'form-control', 'placeholder' => 'End Date', 'required']) !!}
+                                        {!! Form::date('end_date', null, ['class' => 'form-control', 'placeholder' => 'End Date','id'=>'end_date', 'required']) !!}
                                     </div>
                                 </div>
                             </div>
@@ -146,7 +146,7 @@
         $('.js-example-basic-single').select2();
     });
 
-    function ListTable() {
+    function ListTable(start_date,end_date) {
         $('#TableReporting').show();
 
 
@@ -166,7 +166,7 @@
             },
 
             serverSide: true,
-            ajax: "{{ route('reporting_index') }}",
+            ajax: "{{ route('reporting_index') }}"+'?startDate='+start_date,
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
@@ -202,7 +202,8 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
+        var startDate = $('#start_date').val();
+        var endDate = $('#end_date').val();
         // var formSet = $("#TableReporting").serializeArray();
 
         $.ajax({
@@ -215,8 +216,7 @@
 
             },
             success: function() {
-                // $('#createModal').modal('hide');
-                ListTable();
+                ListTable(startDate,endDate);
                 $('#TableReporting').DataTable().ajax.reload();
                 // swal("Success!", "The Divisi create has been successfully!", "success");
                 $('#ActionDate').show();
