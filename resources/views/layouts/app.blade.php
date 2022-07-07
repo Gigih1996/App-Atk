@@ -10,7 +10,7 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <link rel="shortcut icon" href="{{ public_path('images/logo/abais.ico') }}">
+    <link rel="shortcut icon" href="{{ public_path('images/logo/nomika.ico') }}">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" rel="stylesheet">
 
@@ -44,10 +44,6 @@
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @endif
-
-                            <!-- @if (Route::has('register'))
-    <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
-    @endif -->
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('users.index') }}"><i class="fas fa-user-friends"></i>

@@ -41,6 +41,16 @@ class AppServiceProvider extends ServiceProvider
         $events->listen(BuildingMenu::class, function (BuildingMenu $event) {
 
             $event->menu->add([
+                //DASHBOARD
+                'text'    => 'Dashboard',
+                'icon'    => 'fab fa-dashcube',
+                'active' => ['master*'],
+                'label_color' => 'success',
+                'url' => 'home'
+
+            ]);
+
+            $event->menu->add([
                 //MASTER
                 'text'    => 'MASTER',
                 'icon'    => 'fas fa-folder-plus',
